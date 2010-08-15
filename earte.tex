@@ -16,24 +16,81 @@
 
 \begin{document}
 
-\title{Evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on: Estado del Arte}
+\title{Evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on: estado del arte}
 \author{blancavg}
 
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \abstract{
-Estoy haciendo una revisi'on del estado del arte sobre t'ecnicas de evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on. Iniciar'e con antecedentes y conceptos b'asicos. Posteriormente me centrar'e en trabajos espec'ificos sobre evaluaci'on.
+Estoy haciendo una revisi'on del estado del arte sobre t'ecnicas de evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on. Iniciar'e con conceptos sobre sistemas de recomendaci'on para familiarizarme con el tema y posteriormente me centrar'e en trabajos espec'ificos sobre evaluaci'on.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Sistemas de recomendaci'on}
-Hola esto es una prueba de las referencias a URL~\cite{recsys:alban}
+\section{Sistemas de recomendaci'on: \textquestiondown Para qu'e son?, introducci'on y conceptos}
+Esta secci'on se basa en los surveys:~\cite{recsys:alban,start:candillier09,recsys:nlathia}.
+
+\medskip
+Los primeros art'iculos sobre el tema aparecieron a mediados de los noventa. Estos sistmesa tienen por objetivo ayudar a los usuarios a encontrar items que sean de su agrado de entre numerosos art'iculos en un cat'alogo. Los items pueden ser de cualquier tipo: pel'iculas, m'usica, libros, sitios web, noticias, restaurantes, estilos de vida. Los sistemas de recomendaci'on ayudan a los usuarios a encontrar items de su inter'es bas'andose en alguna informaci'on sobre sus preferencias hist'oricas ~\cite{start:candillier09}.
+
+La gran cantidad de recursos existentes hace muy dif'icil que el usuario los vea todos, eso sin contar con que se genera informaci'on nueva constantemente. Los sistemas de recomendaci'on son herramientas para la ayuda de toma de decisiones sin necesitar una b'usqueda. 
+
+Tareas comunes para los sistemas de recomendaci'on pueden ser: encontrar buenos items, encontrar todos los items, recomendar una secuencia de items o como ayuda de navegaci'on. Sin embargo, el objetivo principal es filtrar contenido para proporcionar sugerencias relevantes y 'utiles para cada usuario del sistema. Los sistemas de recomendaci'on difieren de la tradicional recuperaci'on de informaci'on construyendo modelos para las preferencias del usuario y combinar selectivamente las opiniones de usuarios distintos para generar recomendaciones 'unicas por usuario.~\cite{recsys:nlathia}.
+
+Existen dos tipos de problemas con los datos:
+\begin{itemize}
+\item Recuperaci'on de informaci'on (IR): contenido est'atico, query din'amico $\rightarrow$ modelado de contenido (organizado con 'indices).
+\item Filtrado de informaci'on (IF): contenido din'amico, query est'atico $\rightarrow$ modelado de query (organizado como filtros).
+
+La recomendaci'on se encuentra entre IR e IF ya que el contenido var'ia suavemente y los queries dependen de pocos par'ametros. Los m'etodos para IR e IF son entonces usados para reducir el proceso en tiempo de query~\cite{recsys:alban}.
+\end{itemize}
+
+\smallskip
+\textbf{Usuario:} el usuario final del sistema, a quien se le quiere recomendar algo.
+
+\smallskip
+\textbf{Rating:} generar recomendaciones a menudo se describe como el problema de predecir qu'e tanto le gustar'a al usuario o la calificaci'on exacta que el usuario le dar'a a un item espec'ifico. Los ratings pueden ser expl'icitos o impl'icitos.
+
+\smallskip
+\textbf{Perfil:} Los usuarios pueden ser modelados de acuerdo a una gran variedad de informaci'on. La informaci'on m'as importante es el conjunto de evaluaciones (ratings) que han dado al sistema, los cuales corresponden a cada perfil de usuario. 
+
+\smallskip
+\textbf{Relaci'on entre ratings y perfiles:} el punto central de un sistema de recomendaci'on es el conjunto de perfiles de usuario. Los perfiles contienen una colecci'on de juicios o calificaciones del contenido disponible y proporciona una fuente invaluable de informaci'on que puede usarse para dar recomendaciones a los usuarios.
+
+Los juicios humanos sin embargo, pueden provenir de dos fuentes separadas. Esto est'a relacionado con la amplia categor'ia de \textit{retroalimentaci'on relevante} de las t'ecnicas de recuperaci'on de informaci'on (IR). 
+
+\begin{itemize}
+\item Ratings expl'icitos. Calificaciones num'ericas dadas por el usuario.
+\item Ratings impl'icitos. Son dados por el comportamiento del usuario como por ejemplo, tiempo leyendo una p'agina, n'umero de veces que escucha una canci'on o artista o el art'iculo que ha visto al navegar por un cat'alogo.
+\end{itemize}
+
+Los ratings impl'icitos pueden convertirse a un valor num'erico mediante una funci'on apropiada (transpose function). El conjunto de juicios por usuario, comparado al n'umero total de items que pueden calificarse ser'a muy peque~no.
+
+A un conjunto de perfiles de usuario se le conoce como matriz de calificaci'on de usuario.
+
+\medskip
+\textbf{ParaPost} 
+
+
+
+
+
+\section{\textquestiondown C'omo se generan las recomendaciones? Tipos}
+\section{Filtrado basado en contenido}
+\section{Filtrado colaborativo}
+\subsection{Basado en memoria} En el usuario y en el item
+\subsection{Basado en el modelo}
+Medidas de similaridad: correlaci'on, coseno, Manhattan, Jaccard
+\subsection{Filtrado h'ibrido}
+\section{Interfaz de usuario}
+\section{Problemas}
+\section{Evaluaci'on de sistemas de recomendaci'on: he aqu'i el punto}
+\section{Tendencias}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prototipo}
 Prototipo~\cite{rep1:isra} y tambi'en~\cite{rep2:isra}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Tipos de evaluaci'on}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{apalike}
