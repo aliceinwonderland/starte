@@ -66,23 +66,92 @@ Los ratings impl'icitos pueden convertirse a un valor num'erico mediante una fun
 
 A un conjunto de perfiles de usuario se le conoce como matriz de calificaci'on de usuario.
 
+%-------------------------------------------------------
 \medskip
-\textbf{ParaPost} 
+\textbf{ParaPost} \\
+Pedir y dar recomendaciones son cosas que seguramente se han realizado desde que el hombre apareci'o en la Tierra. Ya me imagino:
 
+\begin{itemize}
+\item Mejores 'areas de caza.
+\item D'onde hay cuevas, las mejores, las que protegen m'as.
+\item D'onde hay r'ios, lagos o lagunas.
+\item Grupos de personas pac'ificas o conflictivas.
+\end{itemize}
 
+No ser'ia raro que las pinturas rupestres sean formas primitivas de sistemas de recomendaci'on.
 
+La recomendaci'on de persona a persona es muy com'un y sigue y seguir'a vigente. Normalmente pedimos recomendaciones a personas con las que coincidimos en algo y sabemos que nos puede hacer recomendaciones que nos agraden.
 
+Pero, cuando la b'usqueda es en contenidos de internet y se cuenta con mucha informaci'on es cuando los sistemas de recomendaci'on pueden ser de gran ayuda. Desde algo tan simple como \textquestiondown qu'e pel'icula ver'e hoy? hasta informaci'on sobre salud. Con el continuo y r'apido aumento de la cantidad de informaci'on, los sistemas de recomendaci'on han surgido como una  herramienta para tomar decisiones. Los recsys filtran contenido para proporcionar sugerencias 'utiles al usuario.
 
-\section{\textquestiondown C'omo se generan las recomendaciones? Tipos}
+\medskip
+\textbf{\textquestiondown C'omo se generan las recomendaciones? Tipos}. Bas'andose en c'omo se generan las recomendaciones, existen tres tipos de sistemas de recomendaci'on m'as com'unmente implementados: filtrado basado en contenido, filtrado colaborativo y filtrado h'ibrido. El que predomina es el filtrado colaborativo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Filtrado basado en contenido}
+Estos sistemas hacen un match entre un item y el usuario. Lo hacen bas'andose en la descripci'on del item y el perfil del usuario.
+
+La idea es tener una forma de describir el item, el chiste es descomponer el contenido en atributos enumerables, variables descriptivas bien definidas. Estos atributos pueden ser frecuencia de la palabra o etiquetas que el usuario pone. Una forma de construir el perfil para que incluya los tipos de item que le gustan y una forma de comparaci'on entre item y el perfil. Los items que tengan un alto nivel de cercan'ia a las preferencias del usuario se recomendar'an. 
+
+El \textbf{perfil de usuario} puede construirse de forma \textit{impl'icita} a partir de las preferencias del usuario para items, ya sea buscando los items que le han gustado o disgustado o en sus acciones pasadas (historial de compras). Tambi'en de forma \textit{expl'icita} mediante cuestionarios acerca de las descripciones del item.
+
+Un \textbf{modelo del usuario} puede aprenderse de forma \textbf{impl'icita} usando un m'etodo de aprendizaje autom'atico, tomando como entrada las descripciones del item y generando como salida las apreciaciones del usuario sobre el item. 
+
+Los perfiles del usuario generalmente se representan como vectores de pesos sobre las descripciones el item. Las recomendaciones son generadas aplicando m'etodos al modelo de preferencias del usuario. Entre estos m'etodos est'a la inducci'on de reglas y 'arboles de decisi'on.
+
+Las preferencias indican la relaci'on entre un usuario y los datos. La cobertura de una preferencia se relaciona directamente a la cobertura del o los atributos a los cuales se aplica. Un atributo tiene una alta cobertura cuando aparece en muchos items y una baja cobertura si aparece en pocos. 
+
+Sin embargo, la cobertura puede extenderse usando la noci'on de similaridad entre atributos. Si la preferencia de un usuario es \textit{Me gusta Jackie Chan como actor}, la cobertura es baja pero si se incluye \textit{Me gusta Jackie Chan como actor} como son considerados de forma similar, la cobertura se extiende, esto suponiendo que no existen contradicciones con otras preferencias.
+
+ Diversos enfoques se han seguido para determinar la similaridad entre atributos. Tradicionalmente 'esto es realizado por un experto. Esto es popular para dominios peque~nos pero para grandes, es impr'actico. Como alternativa, hay medidas de similaridad para tomar ventaja de la riqueza de informaci'on existente en internet. Una de ellas es la NormalisedGoogleDistance, que infiere similaridades entre t'erminos textuales usando co-ocurrencia en websites. Sin embargo, para grandes bases de datos esto tambi'en es d'ebil.
+
+Para evitar estas restricciones, se han preferido las m'etricas de similaridad que analizan directamente las bases de datos de los sistemas de recomendaci'on. Por ejemplo, se crean vectores para dos actores y se les aplica la medida wCosine para compararlos.
+
+Otros enfoces son usando clasificadores como Naive Bayes, dando como entrada las descripciones del item y como salida los gustos del usuario para un subconjunto de items. El clasificador se entrena sobre un conjunto de items ya considerados por el usuario. As'i es capaz de predecir si un nuevo elemento le gustar'a o no al usuario.
+
+Ventajas:
+\begin{itemize}
+\item  Usando aprendizaje inductivo con 'arboles y reglas se pueden adaptar r'apidamente y cambiar recomendaciones bas'andose en la retroalimentaci'on del usuario. Esto lleva a la idea de recomendadores conversacionales que permiten a los usuarios revisr las preferencias que dan como entrada criticando los resultados obtenidos. Los modelos del usuario son din'amicos y permiten a los usuarios entender el efecto de sus preferencias en las recomendaciones recibidas. 
+\item Cubre limitaciones de los colaborativos: pueden generar recomendaciones para nuevos items sin necesidad de ratings disponibles.
+\item Pueden manejar situaciones donde los usuarios no consideran los mismos items pero si items parecidos.
+\end{itemize}
+
+Desventajas:
+\begin{itemize}
+\item Necesitan descripciones ricas y completas de items y perfiles de usuario bien construidos. Esta es la principal limitaci'on.
+\item Sufren de sobre-especializaci'on, i.e., a menudo recomiendan items de contenido similar a los items ya considerados lo que puede llevar a una falta de originalidad.
+\item Las decisiones de los usuarios van mas all'a de lo que puede representarse en t'erminos de atributos.
+\item No se pueden aplicar a todo el rango de escenarios.
+\item Requieren que el contenido pueda ser descrito en t'erminos de atributos cosa que no siempre es posible.
+\item A menudo se requieren grandes cantidades de detalles del usuario para hacer buenas recomendaciones.
+\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Filtrado colaborativo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Basado en memoria} En el usuario y en el item
+
+%-------------------------------------------------------
 \subsection{Basado en el modelo}
 Medidas de similaridad: correlaci'on, coseno, Manhattan, Jaccard
-\subsection{Filtrado h'ibrido}
+
+%-------------------------------------------------------
+\section{Filtrado h'ibrido}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Interfaz de usuario}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problemas}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evaluaci'on de sistemas de recomendaci'on: he aqu'i el punto}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tendencias}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
