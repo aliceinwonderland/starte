@@ -127,16 +127,77 @@ Desventajas:
 \end{itemize}
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Filtrado colaborativo}
+Seg'un~\cite{recsys:nlathia}:\\
+Los algoritmos de filtrado colaborativo, a diferencia de los sistemas basados en contenido, ignoran totalmente cualquier descripci'on o atributos de los datos. Favorecen los juicios humanos y se enfocan en generar las recomendaciones con base en las opiniones expresadas por una comunidad de usuarios. Han sido usados ampliamente en una gran diversidad de sitios web.
+
+La generaci'on de recomendaciones y el uso de datos disponibles se ha abordado desde distintas perspectivas. Cada una aplica diferentes heur'isticas y metodolog'ias para crear recomendaciones. Se revisan dos grandes categor'ias de filtros: basado en la memoria y basado en el modelo, posteriormente se da un vistazo a otros m'etodos y enfoques h'ibridos.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Basado en memoria} En el usuario y en el item
+\subsection{Basado en memoria}
+A menudo es referido como el m'etodo dominante para generaci'on de recomendaciones. Su clara estructura junto con sus buenos resultados lo hace una f'acil selecci'on. Se le llama basado en memoria porque asume que los usuarios que han pensado de forma parecida anteriormente, continuar'an compartiendo sus intereses en el futuro. Por lo tanto, las recomendaciones para un usuario pueden generarse prediciendo ratings de contenido no calificado, bas'andose en una agregaci'on de ratinga dados por usuarios parecidos (o cercanos) de la misma comunidad. Por esta raz'on, al proceso se le conoce como kNN, o filtro de los k vecinos m'as cercanos y consiste en tres fases: formaci'on del vecindario, agregaci'on de la opini'on y recomendaci'on.
+
+\smallskip
+\textbf{Formaci'on del vecindario:} La idea es encontrar un subconjunto 'unico de la comunidad para cada usuario, esto se hace identificando a otros usuarios con intereses similares que puedan actuar como recomendadores. Para hacerlo, cada pare de perfiles de usuario se compara para medir el grado de similaridad $w_{a,b}$ compartido. En general, el rango de similaridad var'ia desde $1$ (perfecta similaridad) a $-1$ perfecta disimilaridad. Si un par de usuarios no tiene coincidencias, no hay forma de comparar su similaridad la cual se pone a $0$.
+
+La similaridad puede medirse de diferentes maneras. El objetivo es modelar la relaci'on potencial entre usuarios con un valor num'erico.  Veamos varias:
+
+\begin{itemize}
+\item La medida m'as simple para medir la fuerza de la relaci'on es contar la proporci'on de items co-calificados compartidos por un par de usuarios: poner ecuaci'on.
+
+Esta medida ignora los valores de las calificaciones y s'olo considera lo que cada usuario ha calificado; es el tama~no de la intersecci'on de los dos perfiles del usuario sobre el tama~no de la uni'on. La suposici'on es que dos usuarios que cont'inuamente califican los mismos items comparten esa caracter'istica com'un.
+\item El m'etodo m'as citado para medir la similaridad es el Coeficiente de Correlaci'on de Pearson que mide el grado de linearidad que existe en la intersecci'on de un par de usuarios. poner ecuaci'on.
+\item Una mejora al Coeficiente de Pearson es el pesado de significancia: si el n'umero de items co-calificados $n$ es menor que un umbral $x$, la medida de similaridad es multiplicada por $n/x$. La medida es m'as confiable conforme el n'umero de items co-calificados aumenta.
+\item Otra modificaci'on es el Coeficiente de Pearson con restricciones, que reemplaza la media del usuario en la ecuaci'on con el \textit{rating scale midpoint}.
+\item En el pasado se han usado otras medidas de similaridad, una de ellas es la \textit{Spearman Rank Correlation}.
+\item Vector Similarity (o $cosine angle$ entre dos perfiles de usuario.
+\item Distancia Euclidiana y Manhattan.
+\item Otros m'etodos que tratan de capturar la proporci'on de acuerdo entre usuarios tales como los de Atresty y Winner (1997).
+\end{itemize}
+
+Las medidas de similaridad permanecen como un 'area abierta ya que no se puede hacer m'as que comparar la exactitud de la predicci'on para demostrar que una medida es mejor que otra en un conjunto particular.
+
+\smallskip
+\textbf{Agregaci'on de opini'on:} una vez que las comparaciones entre el usuario y el resto de la comunidad se terminaron, tenemos un conjunto de pesos de los recomendadores por lo que se pueden predecir ratings de contenido no calificado. Al igual que la fase anterior, hay diversas formas de calcular estas predicciones. En dos m'etodos (Herlocker et al, 1999 y Koren, 2007) se predice un rating $p_{a,j}$ del item $i$ para el usuario $a$ como el promedio pesado de ratings de vecinos $r_{b,i}$. Los pesos $w_{a,b}$ son la medida de similaridad del paso anterior por lo que los vecinos m'as similares tendr'an mayor influencia en la predicci'on.
+
+\smallskip
+\textquestiondown Qu'e ratings son los escogidos para contribuir a predecir el rating? Y nuevamente hay mucho de donde escoger que tendr'a un impacto directo en los resultados. En algunos casos, se toman s'olo los $k$-mejores vecinos cercanos para contribuir. Sin embargo, a menudo ninguno de esos vecinos ha calificado al item en cuesti'on y as'i, la cobertura de la predicci'on se impacta negativamente. Una alternativa directa, por tanto, es considerar los $k$-mejores recomendadores que disponen de rating para el item en cuesti'on. Por un lado, este m'etodo garantiza que se har'a una predicci'on; por el otro las predicciones se hacen con base en usuarios modestamente similares por lo que no pueden ser muy precisas.
+
+Una 'ultima alternativa es seleccionar s'olo los usuarios sobre un umbral de similaridad pre-determinado. Pero, \textquestiondown cu'al ser'ia el umbral o valor de $k$?. Son preguntas sin respuesta y dependen del conjunto de datos.
+
+\smallskip
+\textbf{Recomendaci'on:} una vez que se han predicho los ratings para los items y ordenados de acuerdo al valor de la predicci'on, los $n$-mejores items se proponen al usuario final como recomendaciones. Ahora, se puede obtener retroalimentaci'on del usuario. Los perfiles del usuario crecer'an y el recsys puede empezar repetir el proceso: re-calcular medidas de similaridad, predecir ratings y dar recomendaciones. Hasta el momento se ha considerado el proceso de generaci'on de recomendaciones 'unicamente por un enfoque basado-en-memoria de vecinos-cercanos. En otra secci'on se ver'an las contribuciones desde el 'area de aprendizaje autom'atico, a menudo llamadas filtrado colaborativo basado-en-el-modelo.
+
+\medskip
+De acuerdo a~\cite{start:candillier09}:\\
+La entrada al sistema es un conjunto de ratings sobre los items. Los usuarios pueden compararse con base en la apreciaci'on que comparten sobre los items, creando la noci'on de vecindarios de usuarios. De forma parecida, los items pueden compararse con base en la apreciaci'on compartida por los usuarios, formando la noci'on de vecindarios de items. Los ratings del item para un para un usuario dado  pueden predecirse con base en los ratings dados en su vecindario de usuarios y el vecindario de items.
+
+Formalizaci'on:\\
+Sea $U$ un conjunto de $N$ usuarios, $I$ un conjunto de $M$ items, y $R$ un conjunto de ratings $r_{ui}$ de usuarios $u \in U$ en el item $i \in I$. $S_u \subseteq I$ significa el conjunto de items que el usuario $u$ ha calificado.
+
+El objetivo de los enfoques de filtrado colaborativo es predecir el rating $p_{ai}$ de un usuario $a$ sobre un item $i$. Se supone que el usuario $a$ es activo, i.e., ya ha calificado algunos items. El item a ser predecido es desconocido al usuario $i \notin S_{a}$.
+
+\smallskip
+\textbf{Enfoque basado en el usuario.} Es igual que el que describe~\cite{recsys:nlathia} en la fase de \textbf{agregaci'on de opini'on} y consiste en predecir el rating de un usuario para un item con base en los vecinos cercanos.
+
+\smallskip
+\textbf{Enfoque basado en el item.} Recientemente ha crecido el inter'es por los enfoques basados en el item. Dada una medida de similaridad entre items, tales enfoques primero definen vecindades de items. La predicci'on del rating de un usuario por un item se deriva de los ratings del usuario en los vecinos del item fijado.
+
+As'i como en los enfoques basados en el usuario, la vecindad de items tama~no $K$ es un par'ametro del sistema que necesita definirse. Dado $T_i$, la vecindad del item $i$, se consideran dos formas para predecir nuevos ratings del usuario:
+
+\begin{enumerate}
+\item usando una suma pesada
+\item usando una suma pesada de las desviaciones de la media de los ratings del item
+\end{enumerate}
+
 
 %-------------------------------------------------------
 \subsection{Basado en el modelo}
+De acuerdo a~\cite{recsys:nlathia}\\
+En el resumen: pag. 6, en lathia pag. 8, en Candillier pag. 4
+
 Medidas de similaridad: correlaci'on, coseno, Manhattan, Jaccard
 
 %-------------------------------------------------------
