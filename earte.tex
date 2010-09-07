@@ -300,9 +300,18 @@ Seg'un Lathia\\
 \begin{itemize}
 \item Apoyo al 'area por Netflix, cuya competencia busca reducir el error en las recomendaciones de pel'iculas Netflix.
 \item La investigaci'on actual ha ignorado el aspecto temporal de los sistemas de recomendaci'on. La 'unica excepci'on es la definici'on del problema cold-start. El aspecto temporal dar'a informaci'on sobre c'omo crece, evoluciona en el tiempo y la influencia que la variaci'on de ratings disponibles tiene en la precisi'on del sistema. Es decir, dar'a claridad en el efecto de los algoritmos de filtrado en la comunidad de usuarios. Un m'etodo es considerar el sistema de recomendaci'on como un grafo.
-\item La mayor'ia de la investigaci'on ha sido sobre contextos espec'ificos. La mayor'ia de 
+\item La mayor'ia de la investigaci'on ha sido sobre contextos espec'ificos. Recomendaciones con contextos cruzados sigue siendo una pregunta abierta. Dado un perfil de usuario de preferencias de pel'iculas, se le puede recomendar m'usica de forma exitosa?
+\item Los usuarios tienden a hacer diversos perfiles en distintas ubicaciones. Encontrar medios para portar perfiles de un lugar a otro y usarlos para recomendaciones de contexto cruzado es tambi'en un aspecto a explorar.
+\item Filtrado colaborativo en ambientes m'oviles. Al usuario le permitiri'ia recibir recomendaciones dependiendo del lugar en el que est'e. Algunos aspectos a considerar son: \textquestiondown d'onde se almacenar'ian los perfiles y con qui'enes se compartir'ian?, \textquestiondown c'omo se obtendr'ian las recomendaciones?. Importancia de la privacidad y seguridad de los datos.
 \end{itemize}
 
+Seg'un Candillier:
+\begin{itemize}
+\item Combinaci'on de diferentes sistemas de recomendaci'on.
+\item Aprendizaje de m'etricas de similaridad.
+\item Evoluci'on temporal de los ratings donde los m'as recientes cuentan m'as que los viejos.
+\item No tomar en cuenta s'olo la precisi'on de los mejores algoritmos. Es 'util tambi'en considerar aspectos como calidad y utilidad (e.g. cobertura, complejidad algor'itmica, escalabilidad, novedad, confianza y satisfacci'on de usuario).
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prototipo}
@@ -377,12 +386,41 @@ Detalle:
 \item XFOAF. Vocabulario extendido para incluir caracter'isticas contextuales del perfil de los usuarios. Usando FOAF se definen algunas caracter'isticas generales, el vocabulario Geo para la latitud y longitud del usuario y XFOAF para definir sus preferencias personales.
 \item Informaci'on contextual de los proveedores de datos. A partir de las coordenadas geográficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
 \item Obtenci'on de informaci'on contextual del entorno. Se usaron dos servicios Web, uno para obtener el clima y otro para obtener la hora de un determinado lugar geogr'afico.
-\item Re las sem'anticas. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
+\item Reglas sem'anticas. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Reporte reciente (2010)}
 
+De la primera parte se tiene que:
+\begin{itemize}
+\item Se pensaba que un enfoque que considere la fusion entre los sistemas de recomendación basado en usuario y en item con extension de anotaciones sociales puede mejorar el desempeño en comparaci'on a los que no usan anotaciones.
+\item La mejora obtenida a través de la fusi'on es casi imperceptible, mostrando puede ser suficiente considerar el acercamiento basado en usuario solamente, con la extension de anotaciones.
+\item Se sugiere un conjunto de reglas, basado en estudios de marketing.
+\item Las reglas de comportamiento del usuario se formalizaron en el lenguaje de SWRL.
+\item Las reglas contemplan los siguientes aspectos contextuales: econ'omico, psicol'ogico y motivacional.
+\item No toda la informaci'on puede ser representada por una regla.
+\end{itemize}
+
+La metodolog'ia para la construcci'on de reglas de Web sem'antica bajo un enfoque de marketing es la siguiente:
+
+\begin{enumerate}
+\item Determinaci'on del mercado objetivo. Consiste en definir qu'e tipo de productos o servicios se van a recomendar y el alcance del mercado (global o local). En este caso, servicios de restaurantes a nivel local.
+\item Estudio de mercado. Consiste en información proveniente de distintas fuentes, estudios de comportamiento, psicológicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
+\item Determinaci'on de patrones. Se siguió literatura disponible de marketing, misma que permitió identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
+\item Desarrollo de una ontolog'ia. Existen numerosas metodologías para la creación de ontologías, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que serán usados en la generación de reglas. Esta etapa también incluye la población o un mecanismo que permita poblar a la ontología, con
+información de los clientes potenciales y sus atributos así como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, así como sus atributos (especificados en una versión extendida bajo FOAF), la ontología
+se puebla con ejemplares de restaurantes cercanos a la localización del usuario, así como los atributos de la misma.
+
+\item Formalizaci'on de reglas. Es el nexo entre los patrones identificados y la ontolog'ia desarrollada. Las reglas de Web sem'antica formuladas podr'an hacer uso de la ontolog'ia e inferir los resultados que cumplan las premisas especificadas. En nuestro caso, el lenguaje para la especificaci'on de las reglas es SWRL.
+\item Pruebas y correcciones.
+\item Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno. Modificación, eliminación o integración de reglas.
+
+\end{enumerate}
+
+\textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social (son las etiquetas?. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe~no de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
+
+***
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -390,6 +428,8 @@ Detalle:
 Lathia pag 11\\
 3301 pag 8\\
 recsyssurvey2010 pag 5, secci'on 3\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{T'erminos}
