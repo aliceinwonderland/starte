@@ -322,42 +322,36 @@ Seg'un Candillier~\cite{start:candillier09}\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prototipo}
-Informaci'on obtenida los reportes~\cite{rep1:isra,rep2:isra}\\
+En esta secci'on se describen los aspectos considerados para el prototipo de sistema de recomendaci'on realizado por Rafael Ponce. La informaci'on fu'e obtenida los reportes~\cite{rep1:isra,rep2:isra}.
 
 \subsection{Motivaci'on}
-Aspectos:
+Dificultad del usuario para realizar una petici'on precisa en la b'usqueda de servicios, ya sea por el gran n'umero de resultados o por la imprecisi'on de dichos resultados (irrelevancia). La creciente relevancia de la informaci'on geogr'afica lo que se refleja en las numerosas APIs y aplicaciones para creaci'on de mashups y servicios afines. Es importante aprovechar la informaci'on y localizaci'on de lugares y puntos de inter'es de los usuarios. Ayudar a la b'usqueda en servicios geo-localizables considerando la individualidad del usuario.
+
+\textbf{Aspectos importantes}: tomar en cuenta las caracter'isticas individuales de los usuarios como por ejemplo, atributos sociales, culturales y econ'omicos. S'olo unas cuantas aplicaciones usan contexto.
+
+\textbf{Idea principal}: incorporar informaci'on contextual al sistema de recomendaci'on puede mejorar la precisi'on dentro de la recuperaci'on de informaci'on de los servicios geo-localizables. Se utiliza tecnolog'ia de Web sem'antica, interacci'on con elementos de Web social, espec'ificamente, sistemas de anotaci'on social para el filtrado colaborativo de los resultados.
+
 \begin{itemize}
-\item Enfoque: recomendaci'on colaborativa basada en el usuario y en el 'item y una modificaci'on de ambas tomando en cuenta anotaciones sociales. Fusi'on usuario-'item.
-\item Incorporaci'on de tecnolog'ias de Web sem'antica. Uso se sistema de mapas Web. Realizaci'on de consultas sobre restaurantes a partir de datos del repositorio Chefmoz. 
-\item Consultas espaciales sobre base de datos geogr'afica manejados dentro de una ontolog'ia OWL. 
-\item Aplicaci'on de reglas de Web sem'antica en SWRL para enlazar informaci'on contextual tanto de servicios (contexto de datos), del usuario (contexto del perfil personal) y del lugar y momento de la consulta (contexto del entorno).
-\item El prototipo cuantifica el contexto al momento de presentar resultados asi como su interacción con un enfoque de recomendaci'on social.
-\end{itemize}
+\item \textbf{Enfoque}. recomendaci'on colaborativa basada en el usuario y en el 'item y una modificaci'on de ambas tomando en cuenta anotaciones sociales (Web social). Fusi'on usuario-'item.
 
-\textbf{Problemas principales}: imposibilidad de realizar una petici'on precisa ya esa por el gran n'umero de resultados o por la imprecisi'on de dichos resultados (irrelevancia).
-
-\textit{Motivaci'on}: importancia de la informaci'on geogr'afica lo que se refleja en las numerosas APIs y aplicaciones para creaci'on de mashups y servicios afines. Es importante aprovechar la informaci'on y localizaci'on de lugares y puntos de inter'es de los usuarios. Ayudar a la b'usqueda en servicios geo-localizables considerando la individualidad del usuario.
-
-\textit{Aspectos importantes}: caracter'isticas individuales de los usuarios como por ejemplo, atributos socuales, culturales y econ'omicos. S'olo unas cuantas aplicaciones usan contexto. 
-
-\textit{Idea principal}: El manejo de informaci'on contextual pueden mejorar la precisi'on dentro de la recuperaci'on de informaci'on de los servicios geo-localizables. Se utiliza tecnolog'ia de Web sem'antica, interacci'on con elementos de Web social, espec'ificamente, sistemas de anotaci'on social para el filtrado colaborativo de los resultados.
-
-Resumiendo:
-\begin{itemize}
-\item Web sem'antica para manejo de informaci'on contextual. El contexto de los perfiles de usuario y datos de los proveedores de alg'un servicio geo-localizable se representan mediante ontolog'as. 
+ Se utilizan las etiquetas dadas por un usuario (anotaciones sociales) para encontrar los lugares m'as populares y recomendados por la comunidad de usuarios.
+\item \textbf{Incorporaci'on de tecnolog'ias de Web sem'antica}. Web sem'antica para manejo de informaci'on contextual. Uso de sistema de mapas Web. El contexto de los perfiles de usuario y datos de los proveedores de alg'un servicio geo-localizable se representan mediante ontolog'ias.
 
 Beneficios del manejo de ontolog'ias: se presenta una manera interoperable de almacenar y consultar informaci'on.
 
-Beneficios de las reglas sem'anticas: ayudan a determinar qu'e lugares son los m'as pertinentes, aprovechando la informaci'on de las ontolog'ias mencionadas.
+Realizaci'on de consultas sobre restaurantes a partir de datos del repositorio Chefmoz.
+\item \textbf{Consultas espaciales} sobre base de datos geogr'afica manejados dentro de una ontolog'ia OWL.
+\item \textbf{Aplicaci'on de reglas de Web sem'antica} en SWRL para enlazar informaci'on contextual tanto de servicios (contexto de datos), del usuario (contexto del perfil personal) y del lugar y momento de la consulta (contexto del entorno).
 
-\item Web social. Se utilizan las etiquetas dadas por un usuario (anotaciones sociales) para encontrar los lugares m'as populares y recomendados por la comunidad de usuarios.
+Beneficios de las reglas sem'anticas: ayudan a determinar qu'e lugares son los m'as pertinentes, aprovechando la informaci'on de las ontolog'ias mencionadas.
 \end{itemize}
+
 
 \subsection{Recomendaci'on con filtrado colaborativo usando anotaciones sociales}
 
 \begin{itemize}
-\item Objetivo:implementar un sistema de recomendaci'on que considerara anotaciones sociales para generar recomendaciones de 'items.
-\item Se tom'o como base el trabajo de predicci'on de 'items presentado por Tso-Sutter~\cite{tagaware:tso} et al. (2008).
+\item \textbf{Objetivo}: implementar un sistema de recomendaci'on que considerara anotaciones sociales para generar recomendaciones de 'items.
+\item Se tom'o como base el trabajo de predicci'on de 'items presentado por \linebreak Tso-Sutter~\cite{tagaware:tso}.
 \item Se utiliz'o inicialmente un repositorio de MovieLens: datos sobre usuarios, pel'iculas, ratings y anotaciones sociales.
 \item Se implement'o el enfoque de vecinos cercanos.
 \item Se fusionaron los recomendadores para usuario e 'item.
@@ -365,7 +359,7 @@ Beneficios de las reglas sem'anticas: ayudan a determinar qu'e lugares son los m
 \item La ponderaci'on de la similitud se efectu'o usando el Coeficiente de Correlaci'on de Pearson.
 \item Se consider'o tambi'en un ponderado booleano, combinaciones propias del autor y el coeficiente de Tanimoto, que mide el traslape entre dos vectores con respecto a los elementos que comparten (Segaran 2007).
 \item Para la fusi'on del filtrado colaborativo de usuario y de 'item se requiri'o normalizar ya que tienen distintas unidades. El filtrado de usuario se basa en frecuencia, el de 'item se basa en la similitud de los 'items.
-\item Esta primera parte se desarroll'o en JSP.
+\item Esta primera parte se desarroll'o en JSP e incluye:
 	\begin{itemize}
 		\item Filtrado colaborativo basado en el usuario.
 		\item Filtrado colaborativo basado en 'item.
@@ -373,27 +367,28 @@ Beneficios de las reglas sem'anticas: ayudan a determinar qu'e lugares son los m
 		\item Filtrado colaborativo basado en usuario con extensi'on de anotaciones sociales.
 		\item Filtrado colaborativo basado en la fusi'on de usuario e 'item, cada uno con anotaciones sociales.
 	\end{itemize}
+\item \textbf{Resultado}: con la fusi'on usuario-'item-tag se obtuvieron mejores resultados que con los enfoques sin tags.
 \end{itemize}
 
-Resultado: con la fusi'on usuario-'item-tag se obtuvieron mejores resultados que con los enfoques sin tags.
 
-\subsection{Manejo de ontolog'ias con informaci'on contextual para la ejecuci'on de reglas sem'anticas}
+
+\subsection{Ontolog'ias con informaci'on contextual para la ejecuci'on de reglas sem'anticas}
 
 Esta etapa consiste en el uso de ontolog'ias para el manejo de la informaci'on contextual del perfil de usuario, de los proveedores de datos e informaci'on del entorno. El objetivo es encontrar un conjunto de resultados sobre servicios geo-localizables m'as apropiados a la situaci'on espacio-temporal del usuario que los solicite. Se utilizar'an reglas sem'anticas para identificar los resultados de mayor relevancia contextual.
 
 \begin{enumerate}
-\item Definici'on del perfil de usuario usando un vocabulario ontol'ogico. Se extendi'o el vocabulario FOAF para expresar expl'icitamente las preferencias de los usuarios.
-\item Creaci'on de una ontolog'ia con servicios geo-localizables. Se genera una ontolog'ia con los servicios geo-localizables m'as cercanos al usuario. La latitud y longitud de su ubicaci'n se toman de la definici'on FOAF del primer punto. Esta parte es un primer filtro y reduce el n'umero de lugares y por lo tanto, la informaci'on a procesar.
-\item Obtenci'on de informaci'on contextual del entorno. Se obtiene el clima y la hora de un lugar utilizando servicios Web para cierta latitd y longitud.
-\item Selecci'on y ejecuci'on de reglas sem'anticas. De los pasos anteriores, se tiene informaci'on contextual del perfil de usuario, de los proveedores de datos y del entorno. Con base en esta informaci'on, se eligen las reglas sem'anticas a utilizar sobre los datos de los proveedores de servicios para identificar los restaurantes m'as adecuados.
+\item \textbf{Definici'on del perfil de usuario usando un vocabulario ontol'ogico}. Se extendi'o el vocabulario FOAF para expresar expl'icitamente las preferencias de los usuarios.
+\item \textbf{Creaci'on de una ontolog'ia con servicios geo-localizables}. Se genera una ontolog'ia con los servicios geo-localizables m'as cercanos al usuario. La latitud y longitud de su ubicaci'n se toman de la definici'on FOAF del primer punto. Esta parte es un primer filtro y reduce el n'umero de lugares y por lo tanto, la informaci'on a procesar.
+\item \textbf{Obtenci'on de informaci'on contextual del entorno}. Se obtiene el clima y la hora de un lugar utilizando servicios Web para cierta latitud y longitud.
+\item \textbf{Selecci'on y ejecuci'on de reglas sem'anticas}. De los pasos anteriores, se tiene informaci'on contextual del perfil de usuario, de los proveedores de datos y del entorno. Con base en esta informaci'on, se eligen las reglas sem'anticas a utilizar sobre los datos de los proveedores de servicios para identificar los restaurantes m'as adecuados.
 \end{enumerate}
 
 Detalle:
 \begin{itemize}
-\item XFOAF. Vocabulario extendido para incluir caracter'isticas contextuales del perfil de los usuarios. Usando FOAF se definen algunas caracter'isticas generales, el vocabulario Geo para la latitud y longitud del usuario y XFOAF para definir sus preferencias personales.
-\item Informaci'on contextual de los proveedores de datos. A partir de las coordenadas geográficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
-\item Obtenci'on de informaci'on contextual del entorno. Se usaron dos servicios Web, uno para obtener el clima y otro para obtener la hora de un determinado lugar geogr'afico.
-\item Reglas sem'anticas. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
+\item \textbf{XFOAF}. Vocabulario extendido para incluir caracter'isticas contextuales del perfil de los usuarios. Usando FOAF se definen algunas caracter'isticas generales, el vocabulario Geo para la latitud y longitud del usuario y XFOAF para definir sus preferencias personales.
+\item \textbf{Informaci'on contextual de los proveedores de datos}. A partir de las coordenadas geográficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
+\item \textbf{Obtenci'on de informaci'on contextual del entorno}. Se usaron dos servicios Web, uno para obtener el clima y otro para obtener la hora de un determinado lugar geogr'afico.
+\item \textbf{Reglas sem'anticas}. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -412,23 +407,18 @@ De la primera parte se tiene que:
 La metodolog'ia para la construcci'on de reglas de Web sem'antica bajo un enfoque de marketing es la siguiente:
 
 \begin{enumerate}
-\item Determinaci'on del mercado objetivo. Consiste en definir qu'e tipo de productos o servicios se van a recomendar y el alcance del mercado (global o local). En este caso, servicios de restaurantes a nivel local.
-\item Estudio de mercado. Consiste en información proveniente de distintas fuentes, estudios de comportamiento, psicológicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
-\item Determinaci'on de patrones. Se siguió literatura disponible de marketing, misma que permitió identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
-\item Desarrollo de una ontolog'ia. Existen numerosas metodologías para la creación de ontologías, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que serán usados en la generación de reglas. Esta etapa también incluye la población o un mecanismo que permita poblar a la ontología, con
+\item \textbf{Determinaci'on del mercado objetivo}. Consiste en definir qu'e tipo de productos o servicios se van a recomendar y el alcance del mercado (global o local). En este caso, servicios de restaurantes a nivel local.
+\item \textbf{Estudio de mercado}. Consiste en información proveniente de distintas fuentes, estudios de comportamiento, psicológicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
+\item \textbf{Determinaci'on de patrones}. Se siguió literatura disponible de marketing, misma que permitió identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
+\item \textbf{Desarrollo de una ontolog'ia}. Existen numerosas metodologías para la creación de ontologías, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que serán usados en la generación de reglas. Esta etapa también incluye la población o un mecanismo que permita poblar a la ontología, con
 información de los clientes potenciales y sus atributos así como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, así como sus atributos (especificados en una versión extendida bajo FOAF), la ontología
 se puebla con ejemplares de restaurantes cercanos a la localización del usuario, así como los atributos de la misma.
 
-\item Formalizaci'on de reglas. Es el nexo entre los patrones identificados y la ontolog'ia desarrollada. Las reglas de Web sem'antica formuladas podr'an hacer uso de la ontolog'ia e inferir los resultados que cumplan las premisas especificadas. En nuestro caso, el lenguaje para la especificaci'on de las reglas es SWRL.
-\item Pruebas y correcciones.
-\item Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno. Modificación, eliminación o integración de reglas.
-
+\item \textbf{Formalizaci'on de reglas}. Es el nexo entre los patrones identificados y la ontolog'ia desarrollada. Las reglas de Web sem'antica formuladas podr'an hacer uso de la ontolog'ia e inferir los resultados que cumplan las premisas especificadas. En nuestro caso, el lenguaje para la especificaci'on de las reglas es SWRL.
+\item \textbf{Pruebas y correcciones}.
+\item \textbf{Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno}. Modificación, eliminación o integración de reglas.
+\item \textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social (son las etiquetas?. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe~no de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
 \end{enumerate}
-
-\textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social (son las etiquetas?. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe~no de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
-
-***
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evaluaci'on de sistemas de recomendaci'on: he aqu'i el punto}
@@ -449,11 +439,9 @@ recsyssurvey2010 pag 5, secci'on 3\\
 \item GoPlanit: sugiere una serie de servicios geolocalizables que se ajustan a un conjunto de caracter'isticas de usuario (solvencia econ'omica y ambiente del viaje).
 \item Geolocalizaci'on.
 \item Vocabulario FOAF.
-\item Qu'e es informaci'on contextual?
+\item Informaci'on contextual.
 \item Lenguaje de reglas SWRL, necesario para ejecuci'on de reglas de inferencia y consultas sobre una ontolog'ia.
 \end{itemize}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{apalike}
