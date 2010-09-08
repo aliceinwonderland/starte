@@ -386,7 +386,7 @@ Esta etapa consiste en el uso de ontolog'ias para el manejo de la informaci'on c
 Detalle:
 \begin{itemize}
 \item \textbf{XFOAF}. Vocabulario extendido para incluir caracter'isticas contextuales del perfil de los usuarios. Usando FOAF se definen algunas caracter'isticas generales, el vocabulario Geo para la latitud y longitud del usuario y XFOAF para definir sus preferencias personales.
-\item \textbf{Informaci'on contextual de los proveedores de datos}. A partir de las coordenadas geográficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
+\item \textbf{Informaci'on contextual de los proveedores de datos}. A partir de las coordenadas geogr'aficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
 \item \textbf{Obtenci'on de informaci'on contextual del entorno}. Se usaron dos servicios Web, uno para obtener el clima y otro para obtener la hora de un determinado lugar geogr'afico.
 \item \textbf{Reglas sem'anticas}. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
 \end{itemize}
@@ -396,8 +396,8 @@ Detalle:
 
 De la primera parte se tiene que:
 \begin{itemize}
-\item Se pensaba que un enfoque que considere la fusion entre los sistemas de recomendación basado en usuario y en 'item con extension de anotaciones sociales puede mejorar el desempeño en comparaci'on a los que no usan anotaciones.
-\item La mejora obtenida a través de la fusi'on es casi imperceptible, mostrando puede ser suficiente considerar el acercamiento basado en usuario solamente, con la extension de anotaciones.
+\item Se pensaba que un enfoque que considere la fusion entre los sistemas de recomendaci'un basado en usuario y en 'item con extension de anotaciones sociales puede mejorar el desempeño en comparaci'on a los que no usan anotaciones.
+\item La mejora obtenida a trav'es de la fusi'on es casi imperceptible, mostrando puede ser suficiente considerar el acercamiento basado en usuario solamente, con la extension de anotaciones.
 \item Se sugiere un conjunto de reglas, basado en estudios de marketing.
 \item Las reglas de comportamiento del usuario se formalizaron en el lenguaje de SWRL.
 \item Las reglas contemplan los siguientes aspectos contextuales: econ'omico, psicol'ogico y motivacional.
@@ -408,39 +408,64 @@ La metodolog'ia para la construcci'on de reglas de Web sem'antica bajo un enfoqu
 
 \begin{enumerate}
 \item \textbf{Determinaci'on del mercado objetivo}. Consiste en definir qu'e tipo de productos o servicios se van a recomendar y el alcance del mercado (global o local). En este caso, servicios de restaurantes a nivel local.
-\item \textbf{Estudio de mercado}. Consiste en información proveniente de distintas fuentes, estudios de comportamiento, psicológicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
-\item \textbf{Determinaci'on de patrones}. Se siguió literatura disponible de marketing, misma que permitió identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
-\item \textbf{Desarrollo de una ontolog'ia}. Existen numerosas metodologías para la creación de ontologías, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que serán usados en la generación de reglas. Esta etapa también incluye la población o un mecanismo que permita poblar a la ontología, con
-información de los clientes potenciales y sus atributos así como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, así como sus atributos (especificados en una versión extendida bajo FOAF), la ontología
-se puebla con ejemplares de restaurantes cercanos a la localización del usuario, así como los atributos de la misma.
+\item \textbf{Estudio de mercado}. Consiste en informaci'un proveniente de distintas fuentes, estudios de comportamiento, psicol'ugicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
+\item \textbf{Determinaci'on de patrones}. Se sigui'u literatura disponible de marketing, misma que permiti'u identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
+\item \textbf{Desarrollo de una ontolog'ia}. Existen numerosas metodolog'ias para la creaci'un de ontolog'ias, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que ser'an usados en la generaci'un de reglas. Esta etapa tambi'en incluye la poblaci'un o un mecanismo que permita poblar a la ontolog'ia, con
+informaci'un de los clientes potenciales y sus atributos as'i como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, as'i como sus atributos (especificados en una versi'un extendida bajo FOAF), la ontolog'ia
+se puebla con ejemplares de restaurantes cercanos a la localizaci'un del usuario, as'i como los atributos de la misma.
 
 \item \textbf{Formalizaci'on de reglas}. Es el nexo entre los patrones identificados y la ontolog'ia desarrollada. Las reglas de Web sem'antica formuladas podr'an hacer uso de la ontolog'ia e inferir los resultados que cumplan las premisas especificadas. En nuestro caso, el lenguaje para la especificaci'on de las reglas es SWRL.
 \item \textbf{Pruebas y correcciones}.
-\item \textbf{Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno}. Modificación, eliminación o integración de reglas.
+\item \textbf{Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno}. Modificaci'un, eliminaci'un o integraci'un de reglas.
 \item \textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social (son las etiquetas?. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe~no de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
 \end{enumerate}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Evaluaci'on de sistemas de recomendaci'on: he aqu'i el punto}
+\section{Evaluaci'on de sistemas de recomendaci'on}
 Lathia pag 11\\
 3301 pag 8\\
 recsyssurvey2010 pag 5, secci'on 3\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{T'erminos}
+\appendix
+\section{Glosario}
+
 \begin{itemize}
-\item Ontolog'ia.
-\item Ontolog'ia OWL.
-\item Web sem'antica.
-\item Web sem'antica en SWRL.
-\item Mapas Web y mashups.
-\item GoPlanit: sugiere una serie de servicios geolocalizables que se ajustan a un conjunto de caracter'isticas de usuario (solvencia econ'omica y ambiente del viaje).
-\item Geolocalizaci'on.
-\item Vocabulario FOAF.
-\item Informaci'on contextual.
-\item Lenguaje de reglas SWRL, necesario para ejecuci'on de reglas de inferencia y consultas sobre una ontolog'ia.
+\item \textbf{Ontolog'ia}. Exhaustivo y riguroso esquema conceptual  dentro de uno o varios dominios dados; con la finalidad de facilitar la comunicaci'un y el intercambio de informaci'un entre diferentes sistemas y entidades. Un uso común tecnol'ugico actual del concepto de ontolog'ia, en este sentido sem'antico, lo encontramos en la inteligencia artificial y la representaci'un del conocimiento. En algunas aplicaciones, se combinan varios esquemas en una estructura de facto completa de datos, que contiene todas las entidades relevantes y sus relaciones dentro del dominio. T'ipicamente, las ontolog'ias en las computadoras se relacionan estrechamente con vocabularios fijos –una ontolog'ia fundacional– con cuyos t'erminos debe ser descrito todo lo dem'as.
+\item \textbf{OWL} (Ontology Web Language). Es un lenguaje de marcado para publicar y compartir datos usando ontolog'ias en la WWW. OWL tiene como objetivo facilitar un modelo de marcado construido sobre RDF (Resource Description Framework) y codificado en XML. Estas herramientas y otros componentes hacen posible el proyecto de web sem'antica.
+\item \textbf{Web sem'antica}. Se basa en la idea de añadir metadatos sem'anticos y ontol'ogicos a la World Wide Web.  Esas informaciones adicionales —que describen el contenido, el significado y la relaci'un de los datos— se deben proporcionar de manera formal, para que as'i sea posible evaluarlas autom'aticamente por m'aquinas de procesamiento. El objetivo es mejorar Internet ampliando la interoperabilidad entre los sistemas.
+\item \textbf{SWRL (Semantic Web Rule Language)}. Es una propuesta para un lenguaje de reglas de la Web Sem'antica que combina sub-lenguajes de OWL y RML (Rule Markup Language). Las reglas son de la forma de una implicaci'on entre un antecedente (cuerpo) y un consecuente (cabeza). El significado puede leerse como: siempre que las condiciones en el antecedente se cumplan, entonces las condiciones especificadas en el consecuente tambi'en se cumplen. Ejemplo entendible por personas:
+\begin{verbatim}
+hasParent(?x1,?x2) ∧ hasBrother(?x2,?x3) ⇒ hasUncle(?x1,?x3)
+\end{verbatim}
+
+Ejemplo en XML:
+
+\begin{verbatim}
+<ruleml:imp>
+  <ruleml:_rlab ruleml:href="#example1"/>
+  <ruleml:_body>
+    <swrlx:individualPropertyAtom swrlx:property="hasParent">
+      <ruleml:var>x1</ruleml:var>
+      <ruleml:var>x2</ruleml:var>
+    </swrlx:individualPropertyAtom>
+    <swrlx:individualPropertyAtom swrlx:property="hasBrother">
+      <ruleml:var>x2</ruleml:var>
+      <ruleml:var>x3</ruleml:var>
+    </swrlx:individualPropertyAtom>
+  </ruleml:_body>
+  <ruleml:_head>
+    <swrlx:individualPropertyAtom  swrlx:property="hasUncle">
+      <ruleml:var>x1</ruleml:var>
+      <ruleml:var>x3</ruleml:var>
+    </swrlx:individualPropertyAtom>
+  </ruleml:_head>
+ </ruleml:imp>
+
+\end{verbatim}
+\item \textbf{Mapas Web (Web Map Service WMS)} es un protocolo est'andar para proporcionar im'agenes de mapas georeferenciados en Internet. Los mapas son generados por un sevidor de mapas usando informaci'on de una base de datos de un sistema de informaci'on geogr'afica (GIS).
+\item \textbf{Mashups}. En desarrollo Web, es una p'agina Web o aplicaci'on que usa y combina datos, presentaci'on o funcionalidad de dos o m'as fuentes para crear servicios nuevos. El t'ermino implica integraci'on f'acil y r'apida usando APIs abiertas y fuentes de datos para producir resultados enriquecidos que no necesariamente eran la raz'on original para producir los datos crudos iniciales.
+\item \textbf{Geolocalizaci'on}. Se refiere al posicionamiento con el que se define la localizaci'un de un objeto espacial (representado mediante punto, vector, 'area, volumen) en un sistema de coordenadas determinado. Este proceso es utilizado frecuentemente en los Sistemas de Informaci'un Geogr'afica.
+\item \textbf{FOAF (Friend of a friend)} es una ontolog'ia para describir personas, sus actividades y sus relaciones con otras personas y objetos. FOAF permite a grupos de gente describir redes sociales sin necesidad de una base de datos centralizada. FOAF es un vocabulario descriptivo que usa Resource Description Framework (RDF) y Web Ontology Language (OWL). Se pueden usar perfiles FOAF para encontrar por ejemplo, a toda la gente que vive en Europa.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
