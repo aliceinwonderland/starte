@@ -20,23 +20,23 @@
 %\title{Evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on: estado del arte}
 \author{blancavg}
 
+
 \maketitle
+\tableofcontents
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \abstract{
-En este documento se resumen los conceptos generales revisados en diversos \textit{surveys} del estado del arte. El objetivo es conocer la terminolog'ia y conocer los distintos enfoques usados en el desarrollo de sistemas de recomendaci'on. Esta revisi'on servir'a de base a un estudio detallado sobre metodolog'ias de evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on.
+En este documento se resumen los conceptos generales revisados en diversos \textit{surveys} del estado del arte. El objetivo es conocer la terminolog'ia y conocer los distintos enfoques usados en la construcci'on de sistemas de recomendaci'on. Esta revisi'on servir'a de base a un estudio detallado sobre metodolog'ias de evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introducci'on}
-Esta secci'on se basa en los surveys:~\cite{recsys:alban,start:candillier09,recsys:nlathia,almazrorecsys}.
+%Esta secci'on se basa en los surveys:~\cite{recsys:alban,start:candillier09,recsys:nlathia,almazrorecsys}.
 
-\medskip
-Los primeros art'iculos sobre el tema aparecieron a mediados de los noventa. Estos sistemas tienen por objetivo ayudar a los usuarios a encontrar 'items que sean de su agrado de entre numerosos art'iculos en un cat'alogo. Los 'items pueden ser de cualquier tipo: pel'iculas, m'usica, libros, sitios web, noticias, restaurantes, estilos de vida. Los sistemas de recomendaci'on ayudan a los usuarios a encontrar 'items de su inter'es bas'andose en alguna informaci'on sobre sus preferencias hist'oricas ~\cite{start:candillier09}.
+Los primeros art'iculos sobre sistemas de recomendaci'on aparecieron a mediados de los noventa. Estos sistemas tienen por objetivo ayudar a los usuarios a encontrar 'items que sean de su agrado de entre numerosos art'iculos en un cat'alogo. Los 'items pueden ser de cualquier tipo: pel'iculas, m'usica, libros, sitios web, noticias, restaurantes, estilos de vida. Los sistemas de recomendaci'on ayudan a los usuarios a encontrar 'items de su inter'es bas'andose en alguna informaci'on sobre sus preferencias hist'oricas ~\cite{start:candillier09}.
 
 La gran cantidad de recursos existentes hace muy dif'icil que el usuario los vea todos, eso sin contar con que se genera informaci'on nueva constantemente. Los sistemas de recomendaci'on son herramientas para la ayuda de toma de decisiones sin necesitar una b'usqueda. 
 
-Tareas comunes para los sistemas de recomendaci'on pueden ser: encontrar buenos 'items, encontrar todos los 'items, recomendar una secuencia de 'items o como ayuda de navegaci'on. Sin embargo, el objetivo principal es filtrar contenido para proporcionar sugerencias relevantes y 'utiles para cada usuario del sistema. Los sistemas de recomendaci'on difieren de la tradicional recuperaci'on de informaci'on construyendo modelos para las preferencias del usuario y combinando selectivamente las opiniones de usuarios distintos para generar recomendaciones 'unicas por usuario.~\cite{recsys:nlathia}.
-
-Existen dos tipos de problemas con los datos:
+Tareas comunes para los sistemas de recomendaci'on pueden ser: encontrar buenos 'items, encontrar todos los 'items, recomendar una secuencia de 'items o como ayuda de navegaci'on. Sin embargo, el objetivo principal es filtrar contenido para proporcionar sugerencias relevantes y 'utiles para cada usuario del sistema. Los sistemas de recomendaci'on difieren de la tradicional recuperaci'on de informaci'on construyendo modelos para las preferencias del usuario y combinando selectivamente las opiniones de usuarios distintos para generar recomendaciones 'unicas por usuario~\cite{recsys:nlathia}. Existen dos tipos de problemas con los datos:
 \begin{itemize}
 \item Recuperaci'on de informaci'on (IR): IR es la ciencia de la b'usqueda de documentos. contenido est'atico, query din'amico $\rightarrow$ modelado de contenido (organizado con 'indices).
 \item Filtrado de informaci'on (IF): Los sistemas de IF eliminan informaci'on redundante o innecesaria de un flujo de informaci'on. Contenido din'amico, query est'atico $\rightarrow$ modelado de query (organizado como filtros).
@@ -54,8 +54,9 @@ La recomendaci'on se encuentra entre IR e IF ya que el contenido var'ia suavemen
 
 \smallskip
 \textbf{Perfil:} los usuarios pueden ser modelados de acuerdo a una gran variedad de informaci'on. La informaci'on m'as importante es el conjunto de evaluaciones (ratings) que han dado al sistema, los cuales corresponden a cada perfil de usuario.
+
 \smallskip
-\textbf{Relaci'on entre ratings y perfiles:} el punto central de un sistema de recomendaci'on es el conjunto de perfiles de usuario. Los perfiles contienen una colecci'on de juicios o calificaciones del contenido disponible y proporciona una fuente invaluable de informaci'on que puede usarse para dar recomendaciones a los usuarios. Los juicios humanos sin embargo, pueden provenir de dos fuentes separadas.
+\textbf{Relaci'on entre ratings y perfiles:} el punto central de un sistema de recomendaci'on es el conjunto de perfiles de usuario. Los perfiles contienen una colecci'on de juicios o calificaciones del contenido disponible y proporciona una fuente invaluable de informaci'on que puede usarse para dar recomendaciones a los usuarios. Los juicios humanos sin embargo, pueden provenir de dos fuentes separadas:
 \begin{enumerate}
 \item \textbf{Ratings expl'icitos}. Calificaciones num'ericas dadas por el usuario.
 \item \textbf{Ratings impl'icitos}. Son dados por el comportamiento del usuario como por ejemplo, el tiempo leyendo una p'agina, el n'umero de veces que escucha una canci'on o artista o el art'iculo que ha visto al navegar por un cat'alogo.
@@ -87,10 +88,10 @@ Los ratings impl'icitos pueden convertirse a un valor num'erico mediante una fun
 
 \subsection{Tipos de sistemas de recomendaci'on}
 
-Bas'andose en c'omo se generan las recomendaciones, existen diversos tipos de sistemas de recomendaci'on.
+Bas'andose en c'omo se generan las recomendaciones, existen diversos tipos de sistemas de recomendaci'on. Los enfoques m'as simples son los siguientes:
 \begin{itemize}
-\item Algoritmo de predicci'on aleatorio. Selecciona aleatoriamente 'items de un conjunto de 'items disponibles y los recomienda al usuario. La precisi'on se basa en la suerte y mientras m'as grande es el conjunto, las recomendaciones son peores. Se utiliza s'olo como referencia para comparar la calidad de resultados de algoritmos m'as sofisticados~\cite{almazrorecsys}.
-\item Secuencias frecuentes. Se basa en encontrar patrones frecuentes. Por ejemplo, si un cliente califica 'items con regularidad, se puede usar ese patr'on para recomendarle otros. La desventaja es que s'olo es eficiente despu'es de que el cliente ha realizado compras~\cite{almazrorecsys}.
+\item \textbf{Algoritmo de predicci'on aleatorio}. Selecciona aleatoriamente 'items de un conjunto de 'items disponibles y los recomienda al usuario. La precisi'on se basa en la suerte y mientras m'as grande es el conjunto, las recomendaciones son peores. Se utiliza s'olo como referencia para comparar la calidad de resultados de algoritmos m'as sofisticados~\cite{almazrorecsys}.
+\item \textbf{Secuencias frecuentes}. Se basa en encontrar patrones frecuentes. Por ejemplo, si un cliente califica 'items con regularidad, se puede usar ese patr'on para recomendarle otros. La desventaja es que s'olo es eficiente despu'es de que el cliente ha realizado compras~\cite{almazrorecsys}.
 \end{itemize}
 
 Los siguientes tipos de sistema de recomendaci'on son los com'unmente implementados por lo que se explicar'an detalladamente en las siguientes secciones.
@@ -250,7 +251,7 @@ La idea general es derivar un modelo off-line de los datos para predecir ratings
 De acuerdo a Lathia~\cite{recsys:nlathia}, los m'etodos h'ibridos combinan las t'ecnicas del filtrado basado en memoria y filtrado basado en modelo para aprovechar las ventajas de ambos y reducir las desventajas al funcionar solos. Algunos ejemplos son los siguientes:
 
 \begin{itemize}
-\item Rashid et al (2006) propuso un algoritmo para conjuntos de datos grandes que combina un algoritmo de clustering con vecinos-cercanos. La idea es agrupar a los usuarios en clusters para reducir el alto costo de medir la similaridad entre todos los pares de la comunidad y luego aplicar la t'ecnica de vecinos-cercanos para hacer las predicciones. Otro ejemplo donde usan clustering es el sistema Yoda, dise~nado por Shahabi et al(2001).
+\item Rashid et al (2006) propuso un algoritmo para conjuntos de datos grandes que combina un algoritmo de clustering con vecinos-cercanos. La idea es agrupar a los usuarios en clusters para reducir el alto costo de medir la similaridad entre todos los pares de la comunidad y luego aplicar la t'ecnica de vecinos-cercanos para hacer las predicciones. Otro ejemplo donde usan clustering es el sistema Yoda, dise\~{n}ado por Shahabi et al(2001).
 \item Cayzer y Aickelin (2002) hicieron paralelismo entre el filtrado de informaci'on y la operaci'on del sistema inmune humano para construir un filtrado novedoso.
 \item El razonamiento basado en casos fu'e usado exitosamente por Caccigalupo y Plaza (2007) en el dominio de recomendar un orden coherente de canciones.
 \end{itemize}
@@ -306,7 +307,7 @@ Seg'un Lathia~\cite{recsys:nlathia}\\
 \begin{itemize}
 \item Apoyo al 'area por Netflix, cuya competencia busca reducir el error en las recomendaciones de pel'iculas Netflix.
 \item La investigaci'on actual ha ignorado el aspecto temporal de los sistemas de recomendaci'on. La 'unica excepci'on es la definici'on del problema cold-start. El aspecto temporal dar'a informaci'on sobre c'omo crece, evoluciona en el tiempo y la influencia que la variaci'on de ratings disponibles tiene en la precisi'on del sistema. Es decir, dar'a claridad en el efecto de los algoritmos de filtrado en la comunidad de usuarios. Un m'etodo es considerar el sistema de recomendaci'on como un grafo.
-\item La mayor'ia de la investigaci'on ha sido sobre contextos espec'ificos. Recomendaciones con contextos cruzados sigue siendo una pregunta abierta. Dado un perfil de usuario de preferencias de pel'iculas, se le puede recomendar m'usica de forma exitosa?
+\item La mayor'ia de la investigaci'on ha sido sobre contextos espec'ificos. Las recomendaciones con contextos cruzados sigue siendo una pregunta abierta. Dado un perfil de usuario con preferencias de pel'iculas, \textquestiondown se le puede recomendar m'usica de forma exitosa?
 \item Los usuarios tienden a hacer diversos perfiles en distintas ubicaciones. Encontrar medios para portar perfiles de un lugar a otro y usarlos para recomendaciones de contexto cruzado es tambi'en un aspecto a explorar.
 \item Filtrado colaborativo en ambientes m'oviles. Al usuario le permitiri'ia recibir recomendaciones dependiendo del lugar en el que est'e. Algunos aspectos a considerar son: \textquestiondown d'onde se almacenar'ian los perfiles y con qui'enes se compartir'ian?, \textquestiondown c'omo se obtendr'ian las recomendaciones?. Importancia de la privacidad y seguridad de los datos.
 \end{itemize}
@@ -315,17 +316,18 @@ Seg'un Candillier~\cite{start:candillier09}\\
 \begin{itemize}
 \item Combinaci'on de diferentes sistemas de recomendaci'on.
 \item Aprendizaje de m'etricas de similaridad.
-\item Evoluci'on temporal de los ratings donde los m'as recientes cuentan m'as que los viejos.
+\item Evoluci'on temporal de los ratings donde los m'as recientes cuentan m'as que los antiguos.
 \item No tomar en cuenta s'olo la precisi'on de los mejores algoritmos. Es 'util tambi'en considerar aspectos como calidad y utilidad (e.g. cobertura, complejidad algor'itmica, escalabilidad, novedad, confianza y satisfacci'on de usuario).
 \end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prototipo}
-En esta secci'on se describen los aspectos considerados para el prototipo de sistema de recomendaci'on realizado por Rafael Ponce. La informaci'on fu'e obtenida los reportes~\cite{rep1:isra,rep2:isra}.
+En esta secci'on se describen los aspectos considerados para el prototipo del sistema de recomendaci'on realizado por Rafael Ponce. La informaci'on fu'e obtenida los reportes~\cite{rep1:isra,rep2:isra} que muestran el avance en la tesis doctoral: B'usquedas contextuales de servicios basados en localizaci'on en un entorno de web social.
+
 
 \subsection{Motivaci'on}
-Dificultad del usuario para realizar una petici'on precisa en la b'usqueda de servicios, ya sea por el gran n'umero de resultados o por la imprecisi'on de dichos resultados (irrelevancia). La creciente relevancia de la informaci'on geogr'afica lo que se refleja en las numerosas APIs y aplicaciones para creaci'on de mashups y servicios afines. Es importante aprovechar la informaci'on y localizaci'on de lugares y puntos de inter'es de los usuarios. Ayudar a la b'usqueda en servicios geo-localizables considerando la individualidad del usuario.
+Una de las principales motivaciones es la dificultad del usuario para realizar una petici'on precisa en la b'usqueda de servicios, ya sea por el gran n'umero de resultados o por la imprecisi'on de dichos resultados (irrelevancia). La creciente relevancia de la informaci'on geogr'afica lo que se refleja en las numerosas APIs y aplicaciones para creaci'on de mashups y servicios afines. Es importante aprovechar la informaci'on y localizaci'on de lugares y puntos de inter'es de los usuarios. Ayudar a la b'usqueda en servicios geo-localizables considerando la individualidad del usuario.
 
 \textbf{Aspectos importantes}: tomar en cuenta las caracter'isticas individuales de los usuarios como por ejemplo, atributos sociales, culturales y econ'omicos. S'olo unas cuantas aplicaciones usan contexto.
 
@@ -394,9 +396,8 @@ Detalle:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Estado actual del trabajo (2010)}
 
-De la primera parte se tiene que:
 \begin{itemize}
-\item Se pensaba que un enfoque que considere la fusion entre los sistemas de recomendaci'un basado en usuario y en 'item con extension de anotaciones sociales puede mejorar el desempeño en comparaci'on a los que no usan anotaciones.
+\item Se pensaba que un enfoque que considere la fusion entre los sistemas de recomendaci'un basado en usuario y en 'item con extension de anotaciones sociales pod'ia mejorar el desempeño en comparaci'on a los que no usan anotaciones.
 \item La mejora obtenida a trav'es de la fusi'on es casi imperceptible, mostrando puede ser suficiente considerar el acercamiento basado en usuario solamente, con la extension de anotaciones.
 \item Se sugiere un conjunto de reglas, basado en estudios de marketing.
 \item Las reglas de comportamiento del usuario se formalizaron en el lenguaje de SWRL.
@@ -409,28 +410,30 @@ La metodolog'ia para la construcci'on de reglas de Web sem'antica bajo un enfoqu
 \begin{enumerate}
 \item \textbf{Determinaci'on del mercado objetivo}. Consiste en definir qu'e tipo de productos o servicios se van a recomendar y el alcance del mercado (global o local). En este caso, servicios de restaurantes a nivel local.
 \item \textbf{Estudio de mercado}. Consiste en informaci'un proveniente de distintas fuentes, estudios de comportamiento, psicol'ugicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
-\item \textbf{Determinaci'on de patrones}. Se sigui'u literatura disponible de marketing, misma que permiti'u identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
-\item \textbf{Desarrollo de una ontolog'ia}. Existen numerosas metodolog'ias para la creaci'un de ontolog'ias, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que ser'an usados en la generaci'un de reglas. Esta etapa tambi'en incluye la poblaci'un o un mecanismo que permita poblar a la ontolog'ia, con
-informaci'un de los clientes potenciales y sus atributos as'i como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, as'i como sus atributos (especificados en una versi'un extendida bajo FOAF), la ontolog'ia
+\item \textbf{Determinaci'on de patrones}. Se sigui'o literatura disponible de marketing, misma que permiti'o identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
+\item \textbf{Desarrollo de una ontolog'ia}. Existen numerosas metodolog'ias para la creaci'on de ontolog'ias, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que ser'an usados en la generaci'on de reglas. Esta etapa tambi'en incluye la poblaci'on o un mecanismo que permita poblar a la ontolog'ia, con
+informaci'on de los clientes potenciales y sus atributos as'i como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, as'i como sus atributos (especificados en una versi'on extendida bajo FOAF), la ontolog'ia
 se puebla con ejemplares de restaurantes cercanos a la localizaci'un del usuario, as'i como los atributos de la misma.
 
 \item \textbf{Formalizaci'on de reglas}. Es el nexo entre los patrones identificados y la ontolog'ia desarrollada. Las reglas de Web sem'antica formuladas podr'an hacer uso de la ontolog'ia e inferir los resultados que cumplan las premisas especificadas. En nuestro caso, el lenguaje para la especificaci'on de las reglas es SWRL.
 \item \textbf{Pruebas y correcciones}.
-\item \textbf{Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno}. Modificaci'un, eliminaci'un o integraci'un de reglas.
-\item \textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social (son las etiquetas?. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe~no de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
+\item \textbf{Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno}. Modificaci'on, eliminaci'on o integraci'on de reglas.
+\item \textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe\~{n}o de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evaluaci'on de sistemas de recomendaci'on}
+Esta es la parte principal para desarrollar \\
 Lathia pag 11\\
 3301 pag 8\\
 recsyssurvey2010 pag 5, secci'on 3\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \appendix
 \section{Glosario}
 
 \begin{itemize}
-\item \textbf{Ontolog'ia}. Exhaustivo y riguroso esquema conceptual  dentro de uno o varios dominios dados; con la finalidad de facilitar la comunicaci'un y el intercambio de informaci'un entre diferentes sistemas y entidades. Un uso común tecnol'ugico actual del concepto de ontolog'ia, en este sentido sem'antico, lo encontramos en la inteligencia artificial y la representaci'un del conocimiento. En algunas aplicaciones, se combinan varios esquemas en una estructura de facto completa de datos, que contiene todas las entidades relevantes y sus relaciones dentro del dominio. T'ipicamente, las ontolog'ias en las computadoras se relacionan estrechamente con vocabularios fijos –una ontolog'ia fundacional– con cuyos t'erminos debe ser descrito todo lo dem'as.
+\item \textbf{Ontolog'ia}. Exhaustivo y riguroso esquema conceptual  dentro de uno o varios dominios dados; con la finalidad de facilitar la comunicaci'on y el intercambio de informaci'on entre diferentes sistemas y entidades. Un uso común tecnol'ugico actual del concepto de ontolog'ia, en este sentido sem'antico, lo encontramos en la inteligencia artificial y la representaci'un del conocimiento. En algunas aplicaciones, se combinan varios esquemas en una estructura de facto completa de datos, que contiene todas las entidades relevantes y sus relaciones dentro del dominio. T'ipicamente, las ontolog'ias en las computadoras se relacionan estrechamente con vocabularios fijos –una ontolog'ia fundacional– con cuyos t'erminos debe ser descrito todo lo dem'as.
 \item \textbf{OWL} (Ontology Web Language). Es un lenguaje de marcado para publicar y compartir datos usando ontolog'ias en la WWW. OWL tiene como objetivo facilitar un modelo de marcado construido sobre RDF (Resource Description Framework) y codificado en XML. Estas herramientas y otros componentes hacen posible el proyecto de web sem'antica.
 \item \textbf{Web sem'antica}. Se basa en la idea de añadir metadatos sem'anticos y ontol'ogicos a la World Wide Web.  Esas informaciones adicionales —que describen el contenido, el significado y la relaci'un de los datos— se deben proporcionar de manera formal, para que as'i sea posible evaluarlas autom'aticamente por m'aquinas de procesamiento. El objetivo es mejorar Internet ampliando la interoperabilidad entre los sistemas.
 \item \textbf{SWRL (Semantic Web Rule Language)}. Es una propuesta para un lenguaje de reglas de la Web Sem'antica que combina sub-lenguajes de OWL y RML (Rule Markup Language). Las reglas son de la forma de una implicaci'on entre un antecedente (cuerpo) y un consecuente (cabeza). El significado puede leerse como: siempre que las condiciones en el antecedente se cumplan, entonces las condiciones especificadas en el consecuente tambi'en se cumplen. Ejemplo entendible por personas:
@@ -469,6 +472,7 @@ Ejemplo en XML:
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \bibliographystyle{apalike}
 \bibliography{ea}
 \end{document} 
