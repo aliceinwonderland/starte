@@ -438,8 +438,34 @@ La evaluaci'on de los sistemas de recomendaci'on es dif'icil por diversas razone
 
 
 %-------------------------------------------------------
-\subsection{Enfoques de evaluaci'on}
-Offline y Online
+\subsection{Definir la tarea del sistema}
+La adecuada evaluaci'on de un sistema de recomendaci'on depende de los objetivos y las tareas para los que el sistema fu'e hecho. Las siguientes son las tareas m'as evaluadas en la literatura
+\begin{itemize}
+\item Anotaci'on en contexto: Filtrado de contenido. Predicci'on de preferencia de contenido. El usuario selecciona los mensajes o ligas a seguir de una lista que se le muestra. La lista se cre'o por predicciones. El factor a evaluar es qu'e tan bien el sistema ayud'o al usuario a distinguir entre contenido deseado y no deseado.
+\item Encontrar buenos art'iculos. El sistema sugiere una lista rankeada de art'iculos al usuario y la predicci'on de qu'e tanto le gustar'a. Los comerciales no muestran la predicci'on.
+\end{itemize}
+
+Las siguientes son tareas consideradas importantes pero que hasta el 2004 no se hab'ian tomado en cuenta para evaluaci'on.
+
+\begin{itemize}
+\item Encontrar todos los items buenos. Algunos usuarios buscan encontrar todos los 'items de su inter'es sin importar el tiempo y sin importar ver unos cuantos que no les interesen. Les importa que el sistema les de garant'ia de que el n'umero de falsos positivos sea m'inimo. Factor: la cobertura.
+\item Secuencia recomendada. Se asume que la secuencia de art'iculos, como un todo, es la que se busca para satisfacci'on. Como ejemplo, la m'usica y los art'iculos.
+\item Sin comprar, s'olo navegar. Los recomendadores se enfocan a evaluar la precisi'on para ayudar al usuario a decidir una compra. No siempre es as'i, por lo que no necesariamente la precisi'on es la forma correcta de evaluar. Aspectos: facilidad de navegaci'on y el nivel y naturaleza de la informaci'on que se le de al usuario.
+\item Encontrar un recomendador confiable. Aspecto: evaluar si los usuarios contribuir'an a los ratings pues eso es lo que hace que el recomendador sea exitoso.
+\item Mejorar el perfil. Es la tarea relacionada con el rating que la mayor'ia de los sistemas de recomendaci'on suponen. Los usuarios contribuyen a los ratings porque creen que mejoran su perfil y as'i mejoran la calidad de la recomendaci'on que reciben.
+\item Deseo de expresarse. Hay usuarios a quienes no les interesan las recomendaciones sino expresar su opini'on. Aspecto: favorecer la autoexpresi'on puede proporcionar m'as datos para mejorar las recomendaciones.
+\item Ayudar a otros. Relacionado con el anterior pero no necesariamente van juntos.
+\item Influenciar a otros. Totalmente mala intenci'on, hay usuarios que tratan de influenciar a otros mostrando ciertos art'iculos, e.g., pel'iculas por estrenar. Aspecto: evaluar qu'e tanto el sistema previene esta tarea.
+\end{itemize}
+En el 'area de Interacci'on Humano Computadora (HCI) se dice que el proceso de evaluaci'on debe empezar por entender las tareas que el sistema facilitar'a. Si se eval'ua al sistema por el beneficio al usuario se empezar'ia por identificar la tarea principal.
+%-------------------------------------------------------
+\subsection{Conjuntos de datos}
+Existen distintos aspectos que pueden hacer que los conjuntos de datos influyan en el 'exito del sistema de recomendaci'on.
+\begin{itemize}
+\item La evaluaci'on puede realizarse offline o se necesitan datos en vivo? Si se eval'ua el sistema en la tarea: encontrar buenos 'items donde se desea recomendar 'items novedosos puede no convenir usar solamente datos offline. Es probable que el conjunto de datos no proporcione suficiente informaci'on para evaluar la calidad de los 'items que se est'an recomendando. Si hay un 'item totalmente desconocido para el usuario es probable que no haya rating de ese usuario en esa base de datos. En vivo, los ratings se pueden obtener en el acto por cada item recomendado. Se podr'ia combinar. Predomina el la evaluaci'on offline de precisi'on predictiva. Ventaja: es r'apida y econ'omica. Desventajas: escasez de datos, se limita a evaluaci'on objetiva (datos cuantitativos, los cualitativos no se puede); no se pueden saber preferencias de uso del sistema, por ejemplo. En vivo se puede medir desempe\~{n}o, satisfacci'on, participaci'on entre otras medidas.
+\item Si no hay datos disponibles \textquestiondown pueden usarse datos simulados? Si se usando un nuevo dominio conviene usar datos sint'eticos. Oportunidad: t'ecnicas de modelado para generar datos sint'eticos de acuerdo a un modelo para evaluar el algoritmo. Esto llevar'ia a recomendadores m'as precisos con propiedades teo'ricas m'as claras.
+\item \textquestiondown qu'e propiedades debe tener para modelar mejor las tareas que se van a evaluar del sistema? Cuando se dise\~{n}a un sistema que recomienda comandos, se espera que el usuario haya usado del 5 al 10\%. No se puede usar los mismos algoritmos que para sugerir art'iculos bas'andonos en la evaluaci'on de resultados.
+\end{itemize}
 %-------------------------------------------------------
 \subsection{M'etricas de precisi'on}
 de precisi'on predictiva, de precisi'on de clasificaci'on, de precisi'on del rank
