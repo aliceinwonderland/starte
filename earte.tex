@@ -16,110 +16,131 @@
 
 \begin{document}
 
-\title{Evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on: estado del arte}
+\title{Sistemas de recomendaci'on: conceptos y prototipo}
+%\title{Evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on: estado del arte}
 \author{blancavg}
 
+
 \maketitle
+\tableofcontents
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \abstract{
-Estoy haciendo una revisi'on del estado del arte sobre t'ecnicas de evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on. Iniciar'e con conceptos sobre sistemas de recomendaci'on para familiarizarme con el tema y posteriormente me centrar'e en trabajos espec'ificos sobre evaluaci'on.
+En este documento se resumen los conceptos generales revisados en diversos \textit{surveys} del estado del arte. El objetivo es conocer la terminolog'ia y conocer los distintos enfoques usados en la construcci'on de sistemas de recomendaci'on. Esta revisi'on servir'a de base a un estudio detallado sobre metodolog'ias de evaluaci'on de niveles de satisfacci'on en sistemas de recomendaci'on.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Sistemas de recomendaci'on: \textquestiondown Para qu'e son?, introducci'on y conceptos}
-Esta secci'on se basa en los surveys:~\cite{recsys:alban,start:candillier09,recsys:nlathia}.
+\section{Introducci'on}
+%Esta secci'on se basa en los surveys:~\cite{recsys:alban,start:candillier09,recsys:nlathia,almazrorecsys}.
 
-\medskip
-Los primeros art'iculos sobre el tema aparecieron a mediados de los noventa. Estos sistmesa tienen por objetivo ayudar a los usuarios a encontrar items que sean de su agrado de entre numerosos art'iculos en un cat'alogo. Los items pueden ser de cualquier tipo: pel'iculas, m'usica, libros, sitios web, noticias, restaurantes, estilos de vida. Los sistemas de recomendaci'on ayudan a los usuarios a encontrar items de su inter'es bas'andose en alguna informaci'on sobre sus preferencias hist'oricas ~\cite{start:candillier09}.
+Los primeros art'iculos sobre sistemas de recomendaci'on aparecieron a mediados de los noventa. Estos sistemas tienen por objetivo ayudar a los usuarios a encontrar 'items que sean de su agrado de entre numerosos art'iculos en un cat'alogo. Los 'items pueden ser de cualquier tipo: pel'iculas, m'usica, libros, sitios web, noticias, restaurantes, estilos de vida. Los sistemas de recomendaci'on ayudan a los usuarios a encontrar 'items de su inter'es bas'andose en alguna informaci'on sobre sus preferencias hist'oricas ~\cite{start:candillier09}.
 
-La gran cantidad de recursos existentes hace muy dif'icil que el usuario los vea todos, eso sin contar con que se genera informaci'on nueva constantemente. Los sistemas de recomendaci'on son herramientas para la ayuda de toma de decisiones sin necesitar una b'usqueda. 
+La gran cantidad de recursos existentes hace muy dif'icil que el usuario los vea todos, eso sin contar con que se genera informaci'on nueva constantemente. Los sistemas de recomendaci'on son herramientas para la ayuda de toma de decisiones sin necesitar una b'usqueda.
 
-Tareas comunes para los sistemas de recomendaci'on pueden ser: encontrar buenos items, encontrar todos los items, recomendar una secuencia de items o como ayuda de navegaci'on. Sin embargo, el objetivo principal es filtrar contenido para proporcionar sugerencias relevantes y 'utiles para cada usuario del sistema. Los sistemas de recomendaci'on difieren de la tradicional recuperaci'on de informaci'on construyendo modelos para las preferencias del usuario y combinar selectivamente las opiniones de usuarios distintos para generar recomendaciones 'unicas por usuario.~\cite{recsys:nlathia}.
-
-Existen dos tipos de problemas con los datos:
+Tareas comunes para los sistemas de recomendaci'on pueden ser: encontrar buenos 'items, encontrar todos los 'items, recomendar una secuencia de 'items o como ayuda de navegaci'on. Sin embargo, el objetivo principal es filtrar contenido para proporcionar sugerencias relevantes y 'utiles para cada usuario del sistema. Los sistemas de recomendaci'on difieren de la tradicional recuperaci'on de informaci'on construyendo modelos para las preferencias del usuario y combinando selectivamente las opiniones de usuarios distintos para generar recomendaciones 'unicas por usuario~\cite{recsys:nlathia}. Existen dos tipos de problemas con los datos:
 \begin{itemize}
-\item Recuperaci'on de informaci'on (IR): contenido est'atico, query din'amico $\rightarrow$ modelado de contenido (organizado con 'indices).
-\item Filtrado de informaci'on (IF): contenido din'amico, query est'atico $\rightarrow$ modelado de query (organizado como filtros).
+\item Recuperaci'on de informaci'on (IR): IR es la ciencia de la b'usqueda de documentos. contenido est'atico, query din'amico $\rightarrow$ modelado de contenido (organizado con 'indices).
+\item Filtrado de informaci'on (IF): Los sistemas de IF eliminan informaci'on redundante o innecesaria de un flujo de informaci'on. Contenido din'amico, query est'atico $\rightarrow$ modelado de query (organizado como filtros).
 
-La recomendaci'on se encuentra entre IR e IF ya que el contenido var'ia suavemente y los queries dependen de pocos par'ametros. Los m'etodos para IR e IF son entonces usados para reducir el proceso en tiempo de query~\cite{recsys:alban}.
+La recomendaci'on se encuentra entre IR e IF ya que el contenido var'ia suavemente y los queries dependen de pocos par'ametros. Los m'etodos para IR e IF son usados para reducir el proceso en tiempo de query~\cite{recsys:alban}.
 \end{itemize}
 
-\smallskip
-\textbf{Usuario:} el usuario final del sistema, a quien se le quiere recomendar algo.
+\subsection{Terminolog'ia b'asica}
 
 \smallskip
-\textbf{Rating:} generar recomendaciones a menudo se describe como el problema de predecir qu'e tanto le gustar'a al usuario o la calificaci'on exacta que el usuario le dar'a a un item espec'ifico. Los ratings pueden ser expl'icitos o impl'icitos.
+\textbf{Usuario:} es el usuario final del sistema, a quien se le quiere recomendar algo.
 
 \smallskip
-\textbf{Perfil:} Los usuarios pueden ser modelados de acuerdo a una gran variedad de informaci'on. La informaci'on m'as importante es el conjunto de evaluaciones (ratings) que han dado al sistema, los cuales corresponden a cada perfil de usuario. 
+\textbf{Rating:} es la medida que describe qu'e tanto le gustar'a al usuario un 'item espec'ifico. Generar recomendaciones a menudo se describe como el problema de predecir el rating del usuario sobre un 'item. Los ratings pueden ser expl'icitos o impl'icitos.
 
 \smallskip
-\textbf{Relaci'on entre ratings y perfiles:} el punto central de un sistema de recomendaci'on es el conjunto de perfiles de usuario. Los perfiles contienen una colecci'on de juicios o calificaciones del contenido disponible y proporciona una fuente invaluable de informaci'on que puede usarse para dar recomendaciones a los usuarios.
+\textbf{Perfil:} los usuarios pueden ser modelados de acuerdo a una gran variedad de informaci'on. La informaci'on m'as importante es el conjunto de evaluaciones (ratings) que han dado al sistema, los cuales corresponden a cada perfil de usuario.
 
-Los juicios humanos sin embargo, pueden provenir de dos fuentes separadas. Esto est'a relacionado con la amplia categor'ia de \textit{retroalimentaci'on relevante} de las t'ecnicas de recuperaci'on de informaci'on (IR). 
+\smallskip
+\textbf{Relaci'on entre ratings y perfiles:} el punto central de un sistema de recomendaci'on es el conjunto de perfiles de usuario. Los perfiles contienen una colecci'on de juicios o calificaciones del contenido disponible y proporciona una fuente invaluable de informaci'on que puede usarse para dar recomendaciones a los usuarios. Los juicios humanos sin embargo, pueden provenir de dos fuentes separadas:
+\begin{enumerate}
+\item \textbf{Ratings expl'icitos}. Calificaciones num'ericas dadas por el usuario.
+\item \textbf{Ratings impl'icitos}. Son dados por el comportamiento del usuario como por ejemplo, el tiempo leyendo una p'agina, el n'umero de veces que escucha una canci'on o artista o el art'iculo que ha visto al navegar por un cat'alogo.
+\end{enumerate}
 
-\begin{itemize}
-\item Ratings expl'icitos. Calificaciones num'ericas dadas por el usuario.
-\item Ratings impl'icitos. Son dados por el comportamiento del usuario como por ejemplo, tiempo leyendo una p'agina, n'umero de veces que escucha una canci'on o artista o el art'iculo que ha visto al navegar por un cat'alogo.
-\end{itemize}
+Los ratings impl'icitos pueden convertirse a un valor num'erico mediante una funci'on apropiada (\textit{transpose function}). El conjunto de juicios por usuario, comparado al n'umero total de 'items que pueden calificarse ser'a muy peque\~{n}o.
 
-Los ratings impl'icitos pueden convertirse a un valor num'erico mediante una funci'on apropiada (transpose function). El conjunto de juicios por usuario, comparado al n'umero total de items que pueden calificarse ser'a muy peque~no.
-
-A un conjunto de perfiles de usuario se le conoce como matriz de calificaci'on de usuario.
+\smallskip
+\textbf{Matriz de calificaci'on de usuario:} as'i se le conoce al conjunto de perfiles de usuario.
 
 %-------------------------------------------------------
-\medskip
-\textbf{ParaPost} \\
-Pedir y dar recomendaciones son cosas que seguramente se han realizado desde que el hombre apareci'o en la Tierra. Ya me imagino:
+%\medskip
+%\textbf{ParaPost} \\
+%Pedir y dar recomendaciones son cosas que seguramente se han realizado desde que el hombre apareci'o en la Tierra. Ya me imagino:
 
+%\begin{itemize}
+%\item Mejores 'areas de caza.
+%\item D'onde hay cuevas, las mejores, las que protegen m'as.
+%\item D'onde hay r'ios, lagos o lagunas.
+%\item Grupos de personas pac'ificas o conflictivas.
+%\end{itemize}
+
+%No ser'ia raro que las pinturas rupestres sean formas primitivas de sistemas de recomendaci'on.
+
+%La recomendaci'on de persona a persona es muy com'un y sigue y seguir'a vigente. Normalmente pedimos recomendaciones a personas con las que coincidimos en algo y sabemos que nos puede hacer recomendaciones que nos agraden.
+
+%Pero, cuando la b'usqueda es en contenidos de internet y se cuenta con mucha informaci'on es cuando los sistemas de recomendaci'on pueden ser de gran ayuda. Desde algo tan simple como \textquestiondown qu'e pel'icula ver'e hoy? hasta informaci'on sobre salud. Con el continuo y r'apido aumento de la cantidad de informaci'on, los sistemas de recomendaci'on han surgido como una herramienta para tomar decisiones. Los recsys filtran contenido para proporcionar sugerencias 'utiles al usuario.
+
+
+\subsection{Tipos de sistemas de recomendaci'on}
+
+Bas'andose en c'omo se generan las recomendaciones, existen diversos tipos de sistemas de recomendaci'on. Los enfoques m'as simples son los siguientes:
 \begin{itemize}
-\item Mejores 'areas de caza.
-\item D'onde hay cuevas, las mejores, las que protegen m'as.
-\item D'onde hay r'ios, lagos o lagunas.
-\item Grupos de personas pac'ificas o conflictivas.
+\item \textbf{Algoritmo de predicci'on aleatorio}. Selecciona aleatoriamente 'items de un conjunto de 'items disponibles y los recomienda al usuario. La precisi'on se basa en la suerte y mientras m'as grande es el conjunto, las recomendaciones son peores. Se utiliza s'olo como referencia para comparar la calidad de resultados de algoritmos m'as sofisticados~\cite{almazrorecsys}.
+\item \textbf{Secuencias frecuentes}. Se basa en encontrar patrones frecuentes. Por ejemplo, si un cliente califica 'items con regularidad, se puede usar ese patr'on para recomendarle otros. La desventaja es que s'olo es eficiente despu'es de que el cliente ha realizado compras~\cite{almazrorecsys}.
 \end{itemize}
 
-No ser'ia raro que las pinturas rupestres sean formas primitivas de sistemas de recomendaci'on.
+Los siguientes tipos de sistema de recomendaci'on son los com'unmente implementados por lo que se explicar'an detalladamente en las siguientes secciones.
 
-La recomendaci'on de persona a persona es muy com'un y sigue y seguir'a vigente. Normalmente pedimos recomendaciones a personas con las que coincidimos en algo y sabemos que nos puede hacer recomendaciones que nos agraden.
+\begin{itemize}
+\item Filtrado basado en contenido.
+\item Filtrado colaborativo (CF).
+\item Filtrado h'ibrido.
+\end{itemize}
 
-Pero, cuando la b'usqueda es en contenidos de internet y se cuenta con mucha informaci'on es cuando los sistemas de recomendaci'on pueden ser de gran ayuda. Desde algo tan simple como \textquestiondown qu'e pel'icula ver'e hoy? hasta informaci'on sobre salud. Con el continuo y r'apido aumento de la cantidad de informaci'on, los sistemas de recomendaci'on han surgido como una  herramienta para tomar decisiones. Los recsys filtran contenido para proporcionar sugerencias 'utiles al usuario.
-
-\medskip
-\textbf{\textquestiondown C'omo se generan las recomendaciones? Tipos}. Bas'andose en c'omo se generan las recomendaciones, existen tres tipos de sistemas de recomendaci'on m'as com'unmente implementados: filtrado basado en contenido, filtrado colaborativo y filtrado h'ibrido. El que predomina es el filtrado colaborativo.
+El que predomina es el filtrado colaborativo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Filtrado basado en contenido}
-Estos sistemas hacen un match entre un item y el usuario. Lo hacen bas'andose en la descripci'on del item y el perfil del usuario.
+Estos sistemas hacen una correspondencia entre un 'item y el usuario bas'andose en la descripci'on del 'item y el perfil del usuario.
 
-La idea es tener una forma de describir el item, el chiste es descomponer el contenido en atributos enumerables, variables descriptivas bien definidas. Estos atributos pueden ser frecuencia de la palabra o etiquetas que el usuario pone. Una forma de construir el perfil para que incluya los tipos de item que le gustan y una forma de comparaci'on entre item y el perfil. Los items que tengan un alto nivel de cercan'ia a las preferencias del usuario se recomendar'an. 
+El punto importante es tener una forma de describir el 'item, descomponer el contenido en atributos enumerables. Estos atributos pueden ser la frecuencia de la palabra o etiquetas dadas por el usuario. Se necesita una forma de construir el perfil para que incluya los tipos de 'item que le gustan y una forma de comparaci'on entre 'item y el perfil. Los 'items que tengan un alto nivel de cercan'ia a las preferencias del usuario se recomendar'an.
 
-El \textbf{perfil de usuario} puede construirse de forma \textit{impl'icita} a partir de las preferencias del usuario para items, ya sea buscando los items que le han gustado o disgustado o en sus acciones pasadas (historial de compras). Tambi'en de forma \textit{expl'icita} mediante cuestionarios acerca de las descripciones del item.
+El \textbf{perfil de usuario} puede construirse de forma \textit{impl'icita} a partir de las preferencias del usuario para 'items, ya sea buscando los 'items que le han gustado o disgustado o en sus acciones pasadas (historial de compras). Tambi'en de forma \textit{expl'icita} mediante cuestionarios acerca de las descripciones del 'item.
 
-Un \textbf{modelo del usuario} puede aprenderse de forma \textbf{impl'icita} usando un m'etodo de aprendizaje autom'atico, tomando como entrada las descripciones del item y generando como salida las apreciaciones del usuario sobre el item. 
+Un \textbf{modelo del usuario} puede aprenderse de forma \textbf{impl'icita} usando un m'etodo de aprendizaje autom'atico, tomando como entrada las descripciones del 'item y generando como salida las apreciaciones del usuario sobre el 'item.
 
-Los perfiles del usuario generalmente se representan como vectores de pesos sobre las descripciones el item. Las recomendaciones son generadas aplicando m'etodos al modelo de preferencias del usuario. Entre estos m'etodos est'a la inducci'on de reglas y 'arboles de decisi'on.
+Los perfiles del usuario generalmente se representan como vectores de pesos sobre las descripciones el 'item. Las recomendaciones son generadas aplicando m'etodos al modelo de preferencias del usuario. Entre estos m'etodos est'a la inducci'on de reglas y 'arboles de decisi'on.
 
-Las preferencias indican la relaci'on entre un usuario y los datos. La cobertura de una preferencia se relaciona directamente a la cobertura del o los atributos a los cuales se aplica. Un atributo tiene una alta cobertura cuando aparece en muchos items y una baja cobertura si aparece en pocos. 
+Las preferencias indican la relaci'on entre un usuario y los datos. La cobertura de una preferencia se relaciona directamente a la cobertura del o los atributos a los cuales se aplica. Un atributo tiene una alta cobertura cuando aparece en muchos 'items y una baja cobertura si aparece en pocos. Sin embargo, la cobertura puede extenderse usando la noci'on de similaridad entre atributos. Si la preferencia de un usuario es \textit{Me gusta Jackie Chan como actor}, la cobertura es baja pero si se incluye \textit{Me gusta Jackie Chan como actor} como son considerados de forma similar, la cobertura se extiende, esto suponiendo que no existen contradicciones con otras preferencias.
 
-Sin embargo, la cobertura puede extenderse usando la noci'on de similaridad entre atributos. Si la preferencia de un usuario es \textit{Me gusta Jackie Chan como actor}, la cobertura es baja pero si se incluye \textit{Me gusta Jackie Chan como actor} como son considerados de forma similar, la cobertura se extiende, esto suponiendo que no existen contradicciones con otras preferencias.
-
- Diversos enfoques se han seguido para determinar la similaridad entre atributos. Tradicionalmente 'esto es realizado por un experto. Esto es popular para dominios peque~nos pero para grandes, es impr'actico. Como alternativa, hay medidas de similaridad para tomar ventaja de la riqueza de informaci'on existente en internet. Una de ellas es la NormalisedGoogleDistance, que infiere similaridades entre t'erminos textuales usando co-ocurrencia en websites. Sin embargo, para grandes bases de datos esto tambi'en es d'ebil.
+ Diversos enfoques se han seguido para determinar la similaridad entre atributos. Tradicionalmente 'esto es realizado por un experto. 'Esto es popular para dominios peque\~{n}os pero para grandes, es impr'actico. Como alternativa, hay medidas de similaridad para tomar ventaja de la riqueza de informaci'on existente en internet. Una de ellas es la NormalisedGoogleDistance, que infiere similaridades entre t'erminos textuales usando co-ocurrencia en websites. Sin embargo, para grandes bases de datos esto tambi'en es d'ebil.
 
 Para evitar estas restricciones, se han preferido las m'etricas de similaridad que analizan directamente las bases de datos de los sistemas de recomendaci'on. Por ejemplo, se crean vectores para dos actores y se les aplica la medida wCosine para compararlos.
 
-Otros enfoces son usando clasificadores como Naive Bayes, dando como entrada las descripciones del item y como salida los gustos del usuario para un subconjunto de items. El clasificador se entrena sobre un conjunto de items ya considerados por el usuario. As'i es capaz de predecir si un nuevo elemento le gustar'a o no al usuario.
+Otros enfoces son usando clasificadores como Naive Bayes, dando como entrada las descripciones del 'item y como salida los gustos del usuario para un subconjunto de 'items. El clasificador se entrena sobre un conjunto de 'items ya considerados por el usuario. As'i es capaz de predecir si un nuevo elemento le gustar'a o no al usuario.
 
-Ventajas:
+\medskip
+\noindent
+\textbf{Ventajas}
+
 \begin{itemize}
-\item  Usando aprendizaje inductivo con 'arboles y reglas se pueden adaptar r'apidamente y cambiar recomendaciones bas'andose en la retroalimentaci'on del usuario. Esto lleva a la idea de recomendadores conversacionales que permiten a los usuarios revisr las preferencias que dan como entrada criticando los resultados obtenidos. Los modelos del usuario son din'amicos y permiten a los usuarios entender el efecto de sus preferencias en las recomendaciones recibidas. 
-\item Cubre limitaciones de los colaborativos: pueden generar recomendaciones para nuevos items sin necesidad de ratings disponibles.
-\item Pueden manejar situaciones donde los usuarios no consideran los mismos items pero si items parecidos.
+\item Usando aprendizaje inductivo con 'arboles y reglas se pueden adaptar r'apidamente y cambiar recomendaciones bas'andose en la retroalimentaci'on del usuario. 'Esto lleva a la idea de recomendadores conversacionales que permiten a los usuarios revisar las preferencias que dan como entrada criticando los resultados obtenidos. Los modelos del usuario son din'amicos y permiten a los usuarios entender el efecto de sus preferencias en las recomendaciones recibidas.
+\item Cubre limitaciones de los colaborativos: pueden generar recomendaciones para nuevos 'items sin necesidad de ratings disponibles.
+\item Pueden manejar situaciones donde los usuarios no consideran los mismos 'items pero si 'items parecidos.
 \end{itemize}
 
-Desventajas:
+\medskip
+\noindent
+\textbf{Desventajas}
+
 \begin{itemize}
-\item Necesitan descripciones ricas y completas de items y perfiles de usuario bien construidos. Esta es la principal limitaci'on.
-\item Sufren de sobre-especializaci'on, i.e., a menudo recomiendan items de contenido similar a los items ya considerados lo que puede llevar a una falta de originalidad.
+\item Necesitan descripciones ricas y completas de 'items y perfiles de usuario bien construidos. 'Esta es la principal limitaci'on.
+\item Sufren de sobre-especializaci'on, i.e., a menudo recomiendan 'items de contenido similar a los 'items ya considerados lo que puede llevar a una falta de originalidad.
 \item Las decisiones de los usuarios van mas all'a de lo que puede representarse en t'erminos de atributos.
 \item No se pueden aplicar a todo el rango de escenarios.
 \item Requieren que el contenido pueda ser descrito en t'erminos de atributos cosa que no siempre es posible.
@@ -137,70 +158,69 @@ La generaci'on de recomendaciones y el uso de datos disponibles se ha abordado d
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Basado en memoria}
-A menudo es referido como el m'etodo dominante para generaci'on de recomendaciones. Su clara estructura junto con sus buenos resultados lo hace una f'acil selecci'on. Se le llama basado en memoria porque asume que los usuarios que han pensado de forma parecida anteriormente, continuar'an compartiendo sus intereses en el futuro. Por lo tanto, las recomendaciones para un usuario pueden generarse prediciendo ratings de contenido no calificado, bas'andose en una agregaci'on de ratinga dados por usuarios parecidos (o cercanos) de la misma comunidad. Por esta raz'on, al proceso se le conoce como kNN, o filtro de los k vecinos m'as cercanos y consiste en tres fases: formaci'on del vecindario, agregaci'on de la opini'on y recomendaci'on.
+A menudo es referido como el m'etodo dominante para generaci'on de recomendaciones. Su clara estructura junto con sus buenos resultados lo hace una f'acil selecci'on. Se le llama basado en memoria porque supone que los usuarios que han pensado de forma parecida anteriormente, continuar'an compartiendo sus intereses en el futuro. Por lo tanto, las recomendaciones para un usuario pueden generarse prediciendo ratings de contenido no calificado, bas'andose en una agregaci'on de ratinga dados por usuarios parecidos (o cercanos) de la misma comunidad. Por esta raz'on, al proceso se le conoce como kNN, o filtro de los k vecinos m'as cercanos y consiste en tres fases: formaci'on del vecindario, agregaci'on de la opini'on y recomendaci'on.
 
-\smallskip
-\textbf{Formaci'on del vecindario:} La idea es encontrar un subconjunto 'unico de la comunidad para cada usuario, esto se hace identificando a otros usuarios con intereses similares que puedan actuar como recomendadores. Para hacerlo, cada pare de perfiles de usuario se compara para medir el grado de similaridad $w_{a,b}$ compartido. En general, el rango de similaridad var'ia desde $1$ (perfecta similaridad) a $-1$ perfecta disimilaridad. Si un par de usuarios no tiene coincidencias, no hay forma de comparar su similaridad la cual se pone a $0$.
+\begin{enumerate}
+\item \textbf{Formaci'on del vecindario:} La idea es encontrar un subconjunto 'unico de la comunidad para cada usuario, identificando a otros usuarios con intereses similares que puedan actuar como recomendadores. Para hacerlo, cada pareja de perfiles de usuario se compara para medir el grado de similaridad $w_{a,b}$ compartido. En general, el rango de similaridad var'ia desde $1$ (perfecta similaridad) a $-1$ perfecta disimilaridad. Si un par de usuarios no tiene coincidencias, no hay forma de comparar su similaridad la cual se pone a $0$.
 
-La similaridad puede medirse de diferentes maneras. El objetivo es modelar la relaci'on potencial entre usuarios con un valor num'erico.  Veamos varias:
+La similaridad puede medirse de diferentes maneras. El objetivo es modelar la relaci'on potencial entre usuarios con un valor num'erico. Veamos varias:
 
 \begin{itemize}
-\item La medida m'as simple para medir la fuerza de la relaci'on es contar la proporci'on de items co-calificados compartidos por un par de usuarios: poner ecuaci'on.
+\item La medida m'as simple para medir la fuerza de la relaci'on es contar la proporci'on de 'items co-calificados compartidos por un par de usuarios: poner ecuaci'on. Esta medida ignora los valores de las calificaciones y s'olo considera lo que cada usuario ha calificado; es el tama\~{n}o de la intersecci'on de los dos perfiles del usuario sobre el tama\~{n}o de la uni'on. La suposici'on es que dos usuarios que cont'inuamente califican los mismos 'items comparten esa caracter'istica com'un.
+\item El m'etodo m'as citado para medir la similaridad es el Coeficiente de Correlaci'on de Pearson que mide el grado de linearidad que existe en la intersecci'on de un par de usuarios. poner ecuaci'on. Fu'e la primera que se propuso y es el coseno de las desviaciones de la media. Otras que son tradicionales son el Coseno simple y Manhattan.
 
-Esta medida ignora los valores de las calificaciones y s'olo considera lo que cada usuario ha calificado; es el tama~no de la intersecci'on de los dos perfiles del usuario sobre el tama~no de la uni'on. La suposici'on es que dos usuarios que cont'inuamente califican los mismos items comparten esa caracter'istica com'un.
-\item El m'etodo m'as citado para medir la similaridad es el Coeficiente de Correlaci'on de Pearson que mide el grado de linearidad que existe en la intersecci'on de un par de usuarios. poner ecuaci'on.
-\item Una mejora al Coeficiente de Pearson es el pesado de significancia: si el n'umero de items co-calificados $n$ es menor que un umbral $x$, la medida de similaridad es multiplicada por $n/x$. La medida es m'as confiable conforme el n'umero de items co-calificados aumenta.
+La desventaja de estas medidas es que s'olo se consideran los atributos en com'un entre dos vectores. As'i, los vectores ser'an id'enticos aunque s'olo compartan una evaluaci'on en un atributo.
+\item La similaridad de \textit{Jaccard} no sufre de esta limitaci'on puesto que mide la sobreposici'on que dos vectores comparten. Lo malo es que no toma en cuenta la diferencia de ratings por lo que si dos usuarios eval'uan por ejemplo, las mismas pel'iculas pero con calificaciones opuestas, se consideran similares.
+\item Al combinar Jaccard con otras medidas, se obtienen mejores beneficios. Por ejemplo, \textit{wPearson} es una medida de Pearson pesada. De forma parecida, \textit{wCosine} y \textit{wManhattan} son una combinaci'on de Jaccard con Cosine y Manhattan respectivamente.
+\item Una mejora al Coeficiente de Pearson es el pesado de significancia: si el n'umero de 'items co-calificados $n$ es menor que un umbral $x$, la medida de similaridad es multiplicada por $n/x$. La medida es m'as confiable conforme el n'umero de 'items co-calificados aumenta.
 \item Otra modificaci'on es el Coeficiente de Pearson con restricciones, que reemplaza la media del usuario en la ecuaci'on con el \textit{rating scale midpoint}.
 \item En el pasado se han usado otras medidas de similaridad, una de ellas es la \textit{Spearman Rank Correlation}.
-\item Vector Similarity (o $cosine angle$ entre dos perfiles de usuario.
+\item Vector Similarity (o $cosine angle$ entre dos perfiles de usuario).
 \item Distancia Euclidiana y Manhattan.
 \item Otros m'etodos que tratan de capturar la proporci'on de acuerdo entre usuarios tales como los de Atresty y Winner (1997).
 \end{itemize}
 
 Las medidas de similaridad permanecen como un 'area abierta ya que no se puede hacer m'as que comparar la exactitud de la predicci'on para demostrar que una medida es mejor que otra en un conjunto particular.
 
-\smallskip
-\textbf{Agregaci'on de opini'on:} una vez que las comparaciones entre el usuario y el resto de la comunidad se terminaron, tenemos un conjunto de pesos de los recomendadores por lo que se pueden predecir ratings de contenido no calificado. Al igual que la fase anterior, hay diversas formas de calcular estas predicciones. En dos m'etodos (Herlocker et al, 1999 y Koren, 2007) se predice un rating $p_{a,j}$ del item $i$ para el usuario $a$ como el promedio pesado de ratings de vecinos $r_{b,i}$. Los pesos $w_{a,b}$ son la medida de similaridad del paso anterior por lo que los vecinos m'as similares tendr'an mayor influencia en la predicci'on.
+
+\item \textbf{Agregaci'on de opini'on:} una vez que las comparaciones entre el usuario y el resto de la comunidad se realizaron, tenemos un conjunto de pesos de los recomendadores. Con los pesos obtenidos es predecir ratings de contenido no calificado. Al igual que la fase anterior, hay diversas formas de calcular estas predicciones. En dos m'etodos (Herlocker et al, 1999 y Koren, 2007) se predice un rating $p_{a,j}$ del 'item $i$ para el usuario $a$ como el promedio pesado de ratings de vecinos $r_{b,i}$. Los pesos $w_{a,b}$ son la medida de similaridad del paso anterior por lo que los vecinos m'as similares tendr'an mayor influencia en la predicci'on.
 
 \smallskip
-\textquestiondown Qu'e ratings son los escogidos para contribuir a predecir el rating? Y nuevamente hay mucho de donde escoger que tendr'a un impacto directo en los resultados. En algunos casos, se toman s'olo los $k$-mejores vecinos cercanos para contribuir. Sin embargo, a menudo ninguno de esos vecinos ha calificado al item en cuesti'on y as'i, la cobertura de la predicci'on se impacta negativamente. Una alternativa directa, por tanto, es considerar los $k$-mejores recomendadores que disponen de rating para el item en cuesti'on. Por un lado, este m'etodo garantiza que se har'a una predicci'on; por el otro las predicciones se hacen con base en usuarios modestamente similares por lo que no pueden ser muy precisas.
+\textquestiondown Qu'e ratings son los escogidos para contribuir a predecir el rating? Nuevamente hay mucho de donde escoger que tendr'a un impacto directo en los resultados. En algunos casos, se toman s'olo los $k$-mejores vecinos cercanos para contribuir. Sin embargo, a menudo ninguno de esos vecinos ha calificado al 'item en cuesti'on y as'i, la cobertura de la predicci'on se impacta negativamente. Una alternativa directa, por tanto, es considerar los $k$-mejores recomendadores que disponen de rating para el 'item en cuesti'on. Por un lado, este m'etodo garantiza que se har'a una predicci'on; por el otro las predicciones se hacen con base en usuarios modestamente similares por lo que no pueden ser muy precisas.
 
+\smallskip
 Una 'ultima alternativa es seleccionar s'olo los usuarios sobre un umbral de similaridad pre-determinado. Pero, \textquestiondown cu'al ser'ia el umbral o valor de $k$?. Son preguntas sin respuesta y dependen del conjunto de datos.
 
-\smallskip
-\textbf{Recomendaci'on:} una vez que se han predicho los ratings para los items y ordenados de acuerdo al valor de la predicci'on, los $n$-mejores items se proponen al usuario final como recomendaciones. Ahora, se puede obtener retroalimentaci'on del usuario. Los perfiles del usuario crecer'an y el recsys puede empezar repetir el proceso: re-calcular medidas de similaridad, predecir ratings y dar recomendaciones. Hasta el momento se ha considerado el proceso de generaci'on de recomendaciones 'unicamente por un enfoque basado-en-memoria de vecinos-cercanos. En otra secci'on se ver'an las contribuciones desde el 'area de aprendizaje autom'atico, a menudo llamadas filtrado colaborativo basado-en-el-modelo.
+\item \textbf{Recomendaci'on:} una vez que se han predicho los ratings para los 'items y ordenados de acuerdo al valor de la predicci'on, los $n$-mejores 'items se proponen al usuario final como recomendaciones. Ahora, se puede obtener retroalimentaci'on del usuario. Los perfiles del usuario crecer'an y el sistema puede empezar repetir el proceso: re-calcular medidas de similaridad, predecir ratings y dar recomendaciones. Hasta el momento se ha considerado el proceso de generaci'on de recomendaciones 'unicamente por un enfoque basado-en-memoria de vecinos-cercanos. En otra secci'on se ver'an las contribuciones desde el 'area de aprendizaje autom'atico, a menudo llamadas filtrado colaborativo basado-en-el-modelo.
+\end{enumerate}
 
-\medskip
-De acuerdo a~\cite{start:candillier09}:\\
-La entrada al sistema es un conjunto de ratings sobre los items. Los usuarios pueden compararse con base en la apreciaci'on que comparten sobre los items, creando la noci'on de vecindarios de usuarios. De forma parecida, los items pueden compararse con base en la apreciaci'on compartida por los usuarios, formando la noci'on de vecindarios de items. Los ratings del item para un para un usuario dado  pueden predecirse con base en los ratings dados en su vecindario de usuarios y el vecindario de items.
-
-Formalizaci'on:\\
-Sea $U$ un conjunto de $N$ usuarios, $I$ un conjunto de $M$ items, y $R$ un conjunto de ratings $r_{ui}$ de usuarios $u \in U$ en el item $i \in I$. $S_u \subseteq I$ significa el conjunto de items que el usuario $u$ ha calificado.
-
-El objetivo de los enfoques de filtrado colaborativo es predecir el rating $p_{ai}$ de un usuario $a$ sobre un item $i$. Se supone que el usuario $a$ es activo, i.e., ya ha calificado algunos items. El item a ser predecido es desconocido al usuario $i \notin S_{a}$.
+Para~\cite{start:candillier09}, la entrada al sistema es un conjunto de ratings sobre los 'items. Los usuarios pueden compararse con base en la apreciaci'on que comparten sobre los 'items, creando la noci'on de vecindarios de usuarios. De forma parecida, los 'items pueden compararse con base en la apreciaci'on compartida por los usuarios, formando la noci'on de vecindarios de 'items. Los ratings del 'item para un para un usuario dado pueden predecirse con base en los ratings dados en su vecindario de usuarios y el vecindario de 'items.
 
 \smallskip
-\textbf{Enfoque basado en el usuario.} Es igual que el que describe~\cite{recsys:nlathia} en la fase de \textbf{agregaci'on de opini'on} y consiste en predecir el rating de un usuario para un item con base en los vecinos cercanos.
+\textbf{Formalizaci'on}. Sea $U$ un conjunto de $N$ usuarios, $I$ un conjunto de $M$ 'items, y $R$ un conjunto de ratings $r_{ui}$ de usuarios $u \in U$ en el 'item $i \in I$. $S_u \subseteq I$ significa el conjunto de 'items que el usuario $u$ ha calificado.
 
-\smallskip
-\textbf{Enfoque basado en el item.} Recientemente ha crecido el inter'es por los enfoques basados en el item. Dada una medida de similaridad entre items, tales enfoques primero definen vecindades de items. La predicci'on del rating de un usuario por un item se deriva de los ratings del usuario en los vecinos del item fijado.
+El objetivo de los enfoques de filtrado colaborativo es predecir el rating $p_{ai}$ de un usuario $a$ sobre un 'item $i$. Se supone que el usuario $a$ es activo, i.e., ya ha calificado algunos 'items. El 'item a ser predecido es desconocido al usuario $i \notin S_{a}$.
 
-As'i como en los enfoques basados en el usuario, la vecindad de items tama~no $K$ es un par'ametro del sistema que necesita definirse. Dado $T_i$, la vecindad del item $i$, se consideran dos formas para predecir nuevos ratings del usuario:
+\begin{itemize}
+\item \textbf{Enfoque basado en el usuario.} Es igual que el que describe~\cite{recsys:nlathia} en la fase de \textbf{agregaci'on de opini'on} y consiste en predecir el rating de un usuario para un 'item con base en los vecinos cercanos.
+
+\item \textbf{Enfoque basado en el 'item.} Recientemente ha crecido el inter'es por los enfoques basados en el 'item. Dada una medida de similaridad entre 'items, tales enfoques primero definen vecindades de 'items. La predicci'on del rating de un usuario por un 'item se deriva de los ratings del usuario en los vecinos del 'item fijado.
+
+As'i como en los enfoques basados en el usuario, la vecindad de 'items tama\~{n}o $K$ es un par'ametro del sistema que necesita definirse. Dado $T_i$, la vecindad del 'item $i$, se consideran dos formas para predecir nuevos ratings del usuario:
 
 \begin{enumerate}
 \item usando una suma pesada
-\item usando una suma pesada de las desviaciones de la media de los ratings del item
+\item usando una suma pesada de las desviaciones de la media de los ratings del 'item
 \end{enumerate}
+\end{itemize}
 
 
 %-------------------------------------------------------
 \subsection{Basado en el modelo}
-De acuerdo a~\cite{recsys:nlathia}\\
-Los enfoques basados en modelo al filtrado colaborativo que provienen del aprendizaje autom'atico, aplican sus t'ecnicas al problema del fitrado de informaci'on.
+De acuerdo a~\cite{recsys:nlathia}, los enfoques basados en modelo que provienen del aprendizaje autom'atico, aplican sus t'ecnicas al problema del fitrado de informaci'on.
 
-La aplicabilidad de t'ecnicas de aprendizaje autom'atico se basa en la descripci'on sobre el objetivo del filtrado: predecir cu'anto les gustar'a o calificar'an los usuarios el contenido que aun no eval'uan y rankear esos items para proporcionar las $n$-mejores recomendaciones. En otras palabras, el filtrado colaborativo cae entre las categor'ias de \textit{clasificaci'on}, o decidir a qu'e grupo de clasificaci'on pertenecen los items no evaluados, y \textit{regresi'on}, el proceso de modelar la relaci'on que una variable (tal como una calificaci'on de usuario) tiene con otras variables (el conjunto de perfiles de usuario).
+El objetivo es predecir cu'anto les gustar'a o calificar'an los usuarios el contenido que aun no eval'uan y rankear esos 'items para proporcionar las $n$-mejores recomendaciones. En otras palabras, el filtrado colaborativo cae entre las categor'ias de \textit{clasificaci'on}, o decidir a qu'e grupo de clasificaci'on pertenecen los 'items no evaluados, y \textit{regresi'on}, el proceso de modelar la relaci'on que una variable (tal como una calificaci'on de usuario) tiene con otras variables (el conjunto de perfiles de usuario). Algunos de los algoritmos aplicados son los siguientes:
 
-Algunos de los algoritmos aplicados son los siguientes:
 \begin{itemize}
 \item Algoritmo p-rank (Crammer y Singer, 2001). Aborda el problema como clasificaci'on lineal y se basa en clasificadores perceptr'on.
 \item Singular value decomposition.
@@ -208,226 +228,312 @@ Algunos de los algoritmos aplicados son los siguientes:
 \item Redes Bayesianas.
 \item M'aquinas de soporte vectorial.
 \item Aprendizaje inductivo de reglas.
-\item An'alisis sem'antico. 
+\item An'alisis sem'antico.
 \end{itemize}
 
-Todos se basan en inferir reglas y patrones a partir de las calificaciones de los datos.
-
-Los enfoques basados en el modelo son atractivos porque una vez entrenados las predicciones se generan de forma r'apida y eficiente. Sin embargo, su 'exito es limitado porque los enfoques basados en memoria son m'as simples y son igualmente precisos.
+Todos se basan en inferir reglas y patrones a partir de las calificaciones de los datos. Los enfoques basados en el modelo son atractivos porque una vez entrenados las predicciones se generan de forma r'apida y eficiente. Sin embargo, su 'exito es limitado porque los enfoques basados en memoria son m'as simples y son igualmente precisos.
 
 Otra diferencia es la interpretaci'on. Los m'etodos basados en memoria modelan a los usuarios bas'andose en valores de similaridad medibles lo que genera la noci'on de una comunidad de recomendadores. Por el contrario, los enfoques basados en el modelo entrenan un modelo para cada usuario y se caracterizan por una visi'on m'as subjetiva de los usuarios finales del sistema.
 
 La idea general es derivar un modelo off-line de los datos para predecir ratings on-line lo m'as r'apido posible. En~\cite{start:candillier09} se mencionan los siguientes m'etodos usados:
 
 \begin{itemize}
-\item El primer tipo de modelo propuesto consiste en agrupar usuarios en clusters y entonces predecir el rating del usuario sobre un item usando los ratings sobre los usuarios del mismo cluster. En vez de vecinos cercanos, clusters.
-\item Tambi'en se han propuesto modelos Bayesianos para modelar dependencias entre items. 
+\item El primer tipo de modelo propuesto consiste en agrupar usuarios en clusters y entonces predecir el rating del usuario sobre un 'item usando los ratings sobre los usuarios del mismo cluster. En vez de vecinos cercanos, clusters.
+\item Tambi'en se han propuesto modelos Bayesianos para modelar dependencias entre 'items.
 \item Reglas de asociaci'on.
 \item Algoritmos de cluster probabilistas para permitir a usuarios pertenecer a distintos grupos.
-\item Jerarqu'ias de clusters, as'i, si un cluster dado no tiene una opini'on en un item particular, se puede considerar al super-cluster.
+\item Jerarqu'ias de clusters, as'i, si un cluster dado no tiene una opini'on en un 'item particular, se puede considerar al super-cluster.
 \end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Medidas de similaridad}
-
-La similaridad definida entre usuarios o items es crucial en el filtrado colaborativo.
-
-\begin{itemize}
-\item La primera que se propuso es la correlaci'on de Pearson que es el coseno de las desviaciones de la media. Otras que son tradicionales son el Coseno simple y Manhattan.
-
-La desventaja de estas medidas es que s'olo se consideran los atributos en com'un entre dos vectores. As'i, los vectores ser'an id'enticos aunque s'olo compartan una evaluaci'on en un atributo.
-\item La similaridad de \textit{Jaccard} no sufre de esta limitaci'on puesto que mide la sobreposici'on que dos vectores comparten. Lo malo es que no toma en cuenta la diferencia de ratings por lo que si dos usuarios eval'uan por ejemplo, las mismas pel'iculas pero con calificaciones opuestas, se consideran similares.
-\item Al combinar Jaccard con otras medidas, se obtienen mejores beneficios. Por ejemplo, \textit{wPearson} es una medida de Pearson pesada. De forma parecida, \textit{wCosine} y \textit{wManhattan} son una combinaci'on de Jaccard con Cosine y Manhattan respectivamente.
-\end{itemize}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Filtrado h'ibrido}
 
-De acuerdo a Lathia~\cite{recsys:nlathia}\\
-Los m'etodos h'ibridos combinan las t'ecnicas del filtrado basado en memoria y filtrado basado en modelo para aprovechar las ventajas de ambos y reducir las desventajas al funcionar solos. Algunos ejemplos son los siguientes:
+De acuerdo a Lathia~\cite{recsys:nlathia}, los m'etodos h'ibridos combinan las t'ecnicas del filtrado basado en memoria y filtrado basado en modelo para aprovechar las ventajas de ambos y reducir las desventajas al funcionar solos. Algunos ejemplos son los siguientes:
 
 \begin{itemize}
-\item Rashid et al (2006) propuso un algoritmo para conjuntos de datos grandes que combina un algoritmo de clustering con vecinos-cercanos. La idea es agrupar a los usuarios en clusters para reducir el alto costo de medir la similaridad entre todos los pares de la comunidad y luego aplicar la t'ecnica de vecinos-cercanos para hacer las predicciones. Otro ejemplo donde usan clustering es el sistema Yoda, dise~nado por Shahabi et al(2001).
+\item Rashid et al (2006) propuso un algoritmo para conjuntos de datos grandes que combina un algoritmo de clustering con vecinos-cercanos. La idea es agrupar a los usuarios en clusters para reducir el alto costo de medir la similaridad entre todos los pares de la comunidad y luego aplicar la t'ecnica de vecinos-cercanos para hacer las predicciones. Otro ejemplo donde usan clustering es el sistema Yoda, dise\~{n}ado por Shahabi et al(2001).
 \item Cayzer y Aickelin (2002) hicieron paralelismo entre el filtrado de informaci'on y la operaci'on del sistema inmune humano para construir un filtrado novedoso.
-\item El razonamiento basado en casos fue usado exitosamente por Caccigalupo y Plaza (2007) en el dominio de recomendar un orden coherente de canciones.
+\item El razonamiento basado en casos fu'e usado exitosamente por Caccigalupo y Plaza (2007) en el dominio de recomendar un orden coherente de canciones.
 \end{itemize}
 
-Y aunque mejoran con respecto a las t'ecnicas aisladas, tambi'en tienen sus limitaciones.
+Aunque estos enfoques mejoran con respecto a las t'ecnicas aisladas, tambi'en tienen sus limitaciones.
 
+\medskip
 De acuerdo a Candillier~\cite{start:candillier09}:\\
 \begin{itemize}
-\item La forma m'as directa de dise~nar un sistema h'ibrido consiste en correr de forma independiente un sistema colaborativo y uno basado en contenido y luego combinar las predicciones usando un esquema de votaci'on.
-\item En Balabanovic y Shoham (1997, la combinaci'on se hace forzando a los items a ser cercanos al perfil del usuario y altamente calificados por sus vecinos.
+\item La forma m'as directa de dise\~{n}ar un sistema h'ibrido consiste en correr de forma independiente un sistema colaborativo y uno basado en contenido y luego combinar las predicciones usando un esquema de votaci'on.
+\item En Balabanovic y Shoham (1997, la combinaci'on se hace forzando a los 'items a ser cercanos al perfil del usuario y altamente calificados por sus vecinos.
 \item En Pazzani (1999) los usuarios son comparados de acuerdo al contenido del perfil y las medidas de similaridas son usadas en un sistema de filtrado colaborativo.
 \item En Polcicova et al. (2000);Melville et al. (2002), la matriz de ratings se enriquece con predicciones basadas en contenido y luego se corre un filtro colaborativo.
-\item En Vozalis y Margaritis (2004) la similaridad entre items se calcula usando descripciones de contenido as'i como sus vectores de ratings asociados. Se usa un filtro colaborativo basado en item. Los autores usan tambi'en datos demogr'aficos de los usuarios. Dos usuarios podr'ian ser considerados parecidos no solo si califican parecido a los mismos items sino tambi'en si pertenecen al mismo segmento demogr'afico.
-\item En Han y Karypis, (2005), se propone extender la lista de predicciones de un filtro colaborativo a items cuyo contenido es cercano a los items recomendados. 
-\item En Wang et al. (2006) se usa la similaridad basada en contenido entre items para comparar usuarios no solo por sus apreciaciones comunes sino considerando las apreciaciones compartidas para items de contenido parecido.
-\item Otra estrategia es usar un filtrado basado en contenido y usar los datos producidos del filtrado colaborativo para enriquecer las descripciones de similaridad de los items. Los items son recomendados de acuerdo a los que al usuario le gustan pero no a los que no le gustan. Las similaridades entre atributos de g'enero, nacionalidad y lenguaje se definen a mano, mientras que la medida wCosine se usa para calcular la similaridad del director y actor. Cada film contiene un atributo de identificaci'on 'unico. El identificador es comparado a los films que el usuario ha anotado previamente. La noci'on de similaridad para atributos de este tipo est'a incorporado en los algoritmos de filtrado colaborativo.
+\item En Vozalis y Margaritis (2004) la similaridad entre 'items se calcula usando descripciones de contenido as'i como sus vectores de ratings asociados. Se usa un filtro colaborativo basado en 'item. Los autores usan tambi'en datos demogr'aficos de los usuarios. Dos usuarios podr'ian ser considerados parecidos no solo si califican parecido a los mismos 'items sino tambi'en si pertenecen al mismo segmento demogr'afico.
+\item En Han y Karypis, (2005), se propone extender la lista de predicciones de un filtro colaborativo a 'items cuyo contenido es cercano a los 'items recomendados.
+\item En Wang et al. (2006) se usa la similaridad basada en contenido entre 'items para comparar usuarios no solo por sus apreciaciones comunes sino considerando las apreciaciones compartidas para 'items de contenido parecido.
+\item Otra estrategia es usar un filtrado basado en contenido y usar los datos producidos del filtrado colaborativo para enriquecer las descripciones de similaridad de los 'items. Los 'items son recomendados de acuerdo a los que al usuario le gustan pero no a los que no le gustan. Las similaridades entre atributos de g'enero, nacionalidad y lenguaje se definen a mano, mientras que la medida wCosine se usa para calcular la similaridad del director y actor. Cada film contiene un atributo de identificaci'on 'unico. El identificador es comparado a los films que el usuario ha anotado previamente. La noci'on de similaridad para atributos de este tipo est'a incorporado en los algoritmos de filtrado colaborativo.
 \end{itemize}
 
-Las t'ecnicas de filtrado colaborativo han sido implementadas m'as frecuentemente que las otras y han presentado mejores resultados.
+%Las t'ecnicas de filtrado colaborativo han sido implementadas m'as frecuentemente que las otras y han presentado mejores resultados.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problemas}
-De acuerdo a Lathia~\cite{recsys:nlathia}\\
+De acuerdo a Lathia~\cite{recsys:nlathia}, hay tres principales tipos de problemas: relativos al algoritmo, relativos al usuario y relativos al sistema. A continuaci'on se describe en qu'e consisten.
 
-Relativos al algoritmo:
+\begin{enumerate}
+\item \textbf{Relativos al algoritmo}
+
 \begin{itemize}
 \item Datos faltantes. Los perfiles del usuario suelen tener datos faltantes lo que hace que al comparar, los resultados sean imprecisos. Soluciones propuestas: t'ecnicas de reducci'on de dimensionalidad Paterek (2007) y algoritmos de predicci'on de datos faltantes Ma et al (2007).
 \end{itemize}
 
-Relativos al usuario:
+\item \textbf{Relativos al usuario}
 \begin{itemize}
-\item Problema del \textit{Cold Start} ocurre cuando un nuevo usuario no ha dado ratings o un nuevo item no ha recibido aun ratings. El sistema carece de datos para generar recomendaciones apropiadas. Estos problemas pueden abordars usando enfoques h'ibridos. Otras soluciones: en el caso de sistemas basados en ratings expl'icitos el sistema puede solicitar a los usuarios calificar cierto n'umero de items como parte del procedimiento de registro. 
-\item Efecto que las recomendaciones tienen sobre el usuario. Los usuarios buscan informaci'on nueva e interesante y si el sistema no da recomendaciones que no le aporten nada nuevo no le interesar'a. Esto es un problema abierto. 
+\item Problema del \textit{Cold Start} ocurre cuando un nuevo usuario no ha dado ratings o un nuevo 'item no ha recibido aun ratings. El sistema carece de datos para generar recomendaciones apropiadas. Estos problemas pueden abordars usando enfoques h'ibridos. Otras soluciones: en el caso de sistemas basados en ratings expl'icitos el sistema puede solicitar a los usuarios calificar cierto n'umero de 'items como parte del procedimiento de registro.
+\item Efecto que las recomendaciones tienen sobre el usuario. Los usuarios buscan informaci'on nueva e interesante y si el sistema no da recomendaciones que no le aporten nada nuevo no le interesar'a. Esto es un problema abierto.
 \item Los sistemas de recomendaci'on requieren tiempo para actualizarse y los usuarios tienen que esperar para que las recomendaciones cambien.
 \end{itemize}
-Relativos al sistema:
+
+\item \textbf{Relativos al sistema}
 \begin{itemize}
 \item Vulnerabilidades del sistema. Se refieren al conjunto de problemas causados por usuarios maliciosos que intentan modificar el sistema. Ejemplos: creaci'on de perfiles falsos para influenciar las recomendaciones del sistema. A estos ataques se les conoce como complicidad (shilling), inyecci'on de perfil o ataques Sybil.
 \item Los ataques por inyecci'on de perfil a menudo se clasifican de acuerdo a la cantidad de informaci'on que el ataque requiere para construir perfiles falsos.
 \item La investigaci'on en el 'area de vulnerabilidades se divide en dos categor'ias: por un lado, los administradores del sistema requieren medios de identificar ataques, reconociendo cu'ando ocurren y cu'ales son los perfiles maliciosos. Un perfil malicioso puede identificarse si comparte una alta similaridad con un gran subconjunto de usuarios, si tiene un efecto fuerte en la precisi'on predictiva del sistema e incluye ratings que tienen una fuerte desviaci'on de la media entre los miembros de la comunidad. El problema es que un perfil de un usuario honesto puede identificarse como malicioso.
 \item Por otra parte, est'a la prevenci'on de los ataques. \textquestiondown C'omo puede minimizarse el costo o efecto de los ataques? Las soluciones generales involucran minimizar el n'umero de recomendadores con quienes los usuarios pueden interactuar imitando el comportamiento social de personas desconocidas y no confiables.
 \end{itemize}
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tendencias}
-Seg'un Lathia\\
+Seg'un Lathia~\cite{recsys:nlathia}\\
 \begin{itemize}
 \item Apoyo al 'area por Netflix, cuya competencia busca reducir el error en las recomendaciones de pel'iculas Netflix.
 \item La investigaci'on actual ha ignorado el aspecto temporal de los sistemas de recomendaci'on. La 'unica excepci'on es la definici'on del problema cold-start. El aspecto temporal dar'a informaci'on sobre c'omo crece, evoluciona en el tiempo y la influencia que la variaci'on de ratings disponibles tiene en la precisi'on del sistema. Es decir, dar'a claridad en el efecto de los algoritmos de filtrado en la comunidad de usuarios. Un m'etodo es considerar el sistema de recomendaci'on como un grafo.
-\item La mayor'ia de la investigaci'on ha sido sobre contextos espec'ificos. La mayor'ia de 
+\item La mayor'ia de la investigaci'on ha sido sobre contextos espec'ificos. Las recomendaciones con contextos cruzados sigue siendo una pregunta abierta. Dado un perfil de usuario con preferencias de pel'iculas, \textquestiondown se le puede recomendar m'usica de forma exitosa?
+\item Los usuarios tienden a hacer diversos perfiles en distintas ubicaciones. Encontrar medios para portar perfiles de un lugar a otro y usarlos para recomendaciones de contexto cruzado es tambi'en un aspecto a explorar.
+\item Filtrado colaborativo en ambientes m'oviles. Al usuario le permitiri'ia recibir recomendaciones dependiendo del lugar en el que est'e. Algunos aspectos a considerar son: \textquestiondown d'onde se almacenar'ian los perfiles y con qui'enes se compartir'ian?, \textquestiondown c'omo se obtendr'ian las recomendaciones?. Importancia de la privacidad y seguridad de los datos.
+\end{itemize}
+
+Seg'un Candillier~\cite{start:candillier09}\\
+\begin{itemize}
+\item Combinaci'on de diferentes sistemas de recomendaci'on.
+\item Aprendizaje de m'etricas de similaridad.
+\item Evoluci'on temporal de los ratings donde los m'as recientes cuentan m'as que los antiguos.
+\item No tomar en cuenta s'olo la precisi'on de los mejores algoritmos. Es 'util tambi'en considerar aspectos como calidad y utilidad (e.g. cobertura, complejidad algor'itmica, escalabilidad, novedad, confianza y satisfacci'on de usuario).
 \end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prototipo}
-Prototipo~\cite{rep1:isra} y tambi'en~\cite{rep2:isra}\\
+En esta secci'on se describen los aspectos considerados para el prototipo del sistema de recomendaci'on realizado por Rafael Ponce. La informaci'on fu'e obtenida los reportes~\cite{rep1:isra,rep2:isra} que muestran el avance en la tesis doctoral: B'usquedas contextuales de servicios basados en localizaci'on en un entorno de web social.
+
 
 \subsection{Motivaci'on}
-Aspectos:
+Una de las principales motivaciones es la dificultad del usuario para realizar una petici'on precisa en la b'usqueda de servicios, ya sea por el gran n'umero de resultados o por la imprecisi'on de dichos resultados (irrelevancia). La creciente relevancia de la informaci'on geogr'afica lo que se refleja en las numerosas APIs y aplicaciones para creaci'on de mashups y servicios afines. Es importante aprovechar la informaci'on y localizaci'on de lugares y puntos de inter'es de los usuarios. Ayudar a la b'usqueda en servicios geo-localizables considerando la individualidad del usuario.
+
+\textbf{Aspectos importantes}: tomar en cuenta las caracter'isticas individuales de los usuarios como por ejemplo, atributos sociales, culturales y econ'omicos. S'olo unas cuantas aplicaciones usan contexto.
+
+\textbf{Idea principal}: incorporar informaci'on contextual al sistema de recomendaci'on puede mejorar la precisi'on dentro de la recuperaci'on de informaci'on de los servicios geo-localizables. Se utiliza tecnolog'ia de Web sem'antica, interacci'on con elementos de Web social, espec'ificamente, sistemas de anotaci'on social para el filtrado colaborativo de los resultados.
+
 \begin{itemize}
-\item Enfoque: recomendaci'on colaborativa basada en el usuario y en el item y una modificaci'on de ambas tomando en cuenta anotaciones sociales. Fusi'on usuario-item.
-\item Incorporaci'on de tecnolog'ias de Web sem'antica. Uso se sistema de mapas Web. Realizaci'on de consultas sobre restaurantes a partir de datos del repositorio Chefmoz. 
-\item Consultas espaciales sobre base de datos geogr'afica manejados dentro de una ontolog'ia OWL. 
-\item Aplicaci'on de reglas de Web sem'antica en SWRL para enlazar informaci'on contextual tanto de servicios (contexto de datos), del usuario (contexto del perfil personal) y del lugar y momento de la consulta (contexto del entorno).
-\item El prototipo cuantifica el contexto al momento de presentar resultados asi como su interacción con un enfoque de recomendaci'on social.
-\end{itemize}
+\item \textbf{Enfoque}. recomendaci'on colaborativa basada en el usuario y en el 'item y una modificaci'on de ambas tomando en cuenta anotaciones sociales (Web social). Fusi'on usuario-'item.
 
-\textbf{Problemas principales}: imposibilidad de realizar una petici'on precisa ya esa por el gran n'umero de resultados o por la imprecisi'on de dichos resultados (irrelevancia).
-
-\textit{Motivaci'on}: importancia de la informaci'on geogr'afica lo que se refleja en las numerosas APIs y aplicaciones para creaci'on de mashups y servicios afines. Es importante aprovechar la informaci'on y localizaci'on de lugares y puntos de inter'es de los usuarios. Ayudar a la b'usqueda en servicios geo-localizables considerando la individualidad del usuario.
-
-\textit{Aspectos importantes}: caracter'isticas individuales de los usuarios como por ejemplo, atributos socuales, culturales y econ'omicos. S'olo unas cuantas aplicaciones usan contexto. 
-
-\textit{Idea principal}: El manejo de informaci'on contextual pueden mejorar la precisi'on dentro de la recuperaci'on de informaci'on de los servicios geo-localizables. Se utiliza tecnolog'ia de Web sem'antica, interacci'on con elementos de Web social, espec'ificamente, sistemas de anotaci'on social para el filtrado colaborativo de los resultados.
-
-Resumiendo:
-\begin{itemize}
-\item Web sem'antica para manejo de informaci'on contextual. El contexto de los perfiles de usuario y datos de los proveedores de alg'un servicio geo-localizable se representan mediante ontolog'as. 
+ Se utilizan las etiquetas dadas por un usuario (anotaciones sociales) para encontrar los lugares m'as populares y recomendados por la comunidad de usuarios.
+\item \textbf{Incorporaci'on de tecnolog'ias de Web sem'antica}. Web sem'antica para manejo de informaci'on contextual. Uso de sistema de mapas Web. El contexto de los perfiles de usuario y datos de los proveedores de alg'un servicio geo-localizable se representan mediante ontolog'ias.
 
 Beneficios del manejo de ontolog'ias: se presenta una manera interoperable de almacenar y consultar informaci'on.
 
-Beneficios de las reglas sem'anticas: ayudan a determinar qu'e lugares son los m'as pertinentes, aprovechando la informaci'on de las ontolog'ias mencionadas.
+Realizaci'on de consultas sobre restaurantes a partir de datos del repositorio Chefmoz.
+\item \textbf{Consultas espaciales} sobre base de datos geogr'afica manejados dentro de una ontolog'ia OWL.
+\item \textbf{Aplicaci'on de reglas de Web sem'antica} en SWRL para enlazar informaci'on contextual tanto de servicios (contexto de datos), del usuario (contexto del perfil personal) y del lugar y momento de la consulta (contexto del entorno).
 
-\item Web social. Se utilizan las etiquetas dadas por un usuario (anotaciones sociales) para encontrar los lugares m'as populares y recomendados por la comunidad de usuarios.
+Beneficios de las reglas sem'anticas: ayudan a determinar qu'e lugares son los m'as pertinentes, aprovechando la informaci'on de las ontolog'ias mencionadas.
 \end{itemize}
+
 
 \subsection{Recomendaci'on con filtrado colaborativo usando anotaciones sociales}
 
 \begin{itemize}
-\item Objetivo:implementar un sistema de recomendaci'on que considerara anotaciones sociales para generar recomendaciones de items.
-\item Se tom'o como base el trabajo de predicci'on de items presentado por Tso-Sutter~\cite{tagaware:tso} et al. (2008).
+\item \textbf{Objetivo}: implementar un sistema de recomendaci'on que considerara anotaciones sociales para generar recomendaciones de 'items.
+\item Se tom'o como base el trabajo de predicci'on de 'items presentado por \linebreak Tso-Sutter~\cite{tagaware:tso}.
 \item Se utiliz'o inicialmente un repositorio de MovieLens: datos sobre usuarios, pel'iculas, ratings y anotaciones sociales.
 \item Se implement'o el enfoque de vecinos cercanos.
-\item Se fusionaron los recomendadores para usuario e item.
-\item Se extiende la relaci'on bidimensional $<$ item, atributo $>$ a tres problemas bidimensionales: $<$ usuario, anotaci'on,$>$, $<$item, anotaci'on$>$ y $<$usuario,'item$>$. De esta manera, las anotaciones de los usuarios son vistas como items en la matriz usuario-item y las anotaciones y las anotaciones a los items son vistas como usuarios.
+\item Se fusionaron los recomendadores para usuario e 'item.
+\item Se extiende la relaci'on bidimensional $<$ 'item, atributo $>$ a tres problemas bidimensionales: $<$ usuario, anotaci'on,$>$, $<$'item, anotaci'on$>$ y $<$usuario,''item$>$. De esta manera, las anotaciones de los usuarios son vistas como 'items en la matriz usuario-'item y las anotaciones y las anotaciones a los 'items son vistas como usuarios.
 \item La ponderaci'on de la similitud se efectu'o usando el Coeficiente de Correlaci'on de Pearson.
 \item Se consider'o tambi'en un ponderado booleano, combinaciones propias del autor y el coeficiente de Tanimoto, que mide el traslape entre dos vectores con respecto a los elementos que comparten (Segaran 2007).
-\item Para la fusi'on del filtrado colaborativo de usuario y de item se requiri'o normalizar ya que tienen distintas unidades. El filtrado de usuario se basa en frecuencia, el de item se basa en la similitud de los items.
-\item Esta primera parte se desarroll'o en JSP.
-	\begin{itemize}
-		\item Filtrado colaborativo basado en el usuario.
-		\item Filtrado colaborativo basado en item.
-		\item Filtrado colaborativo basado en la fusi'on de usuario e item.
-		\item Filtrado colaborativo basado en usuario con extensi'on de anotaciones sociales.
-		\item Filtrado colaborativo basado en la fusi'on de usuario e item, cada uno con anotaciones sociales.
-	\end{itemize}
+\item Para la fusi'on del filtrado colaborativo de usuario y de 'item se requiri'o normalizar ya que tienen distintas unidades. El filtrado de usuario se basa en frecuencia, el de 'item se basa en la similitud de los 'items.
+\item Esta primera parte se desarroll'o en JSP e incluye:
+\begin{itemize}
+\item Filtrado colaborativo basado en el usuario.
+\item Filtrado colaborativo basado en 'item.
+\item Filtrado colaborativo basado en la fusi'on de usuario e 'item.
+\item Filtrado colaborativo basado en usuario con extensi'on de anotaciones sociales.
+\item Filtrado colaborativo basado en la fusi'on de usuario e 'item, cada uno con anotaciones sociales.
+\end{itemize}
+\item \textbf{Resultado}: con la fusi'on usuario-'item-tag se obtuvieron mejores resultados que con los enfoques sin tags.
 \end{itemize}
 
-Resultado: con la fusi'on usuario-item-tag se obtuvieron mejores resultados que con los enfoques sin tags. 
 
-\subsection{Manejo de ontolog'ias con informaci'on contextual para la ejecuci'on de reglas sem'anticas}
+
+\subsection{Ontolog'ias con informaci'on contextual para la ejecuci'on de reglas sem'anticas}
 
 Esta etapa consiste en el uso de ontolog'ias para el manejo de la informaci'on contextual del perfil de usuario, de los proveedores de datos e informaci'on del entorno. El objetivo es encontrar un conjunto de resultados sobre servicios geo-localizables m'as apropiados a la situaci'on espacio-temporal del usuario que los solicite. Se utilizar'an reglas sem'anticas para identificar los resultados de mayor relevancia contextual.
 
 \begin{enumerate}
-\item Definici'on del perfil de usuario usando un vocabulario ontol'ogico. Se extendi'o el vocabulario FOAF para expresar expl'icitamente las preferencias de los usuarios.
-\item Creaci'on de una ontolog'ia con servicios geo-localizables. Se genera una ontolog'ia con los servicios geo-localizables m'as cercanos al usuario. La latitud y longitud de su ubicaci'n se toman de la definici'on FOAF del primer punto. Esta parte es un primer filtro y reduce el n'umero de lugares y por lo tanto, la informaci'on a procesar.
-\item Obtenci'on de informaci'on contextual del entorno. Se obtiene el clima y la hora de un lugar utilizando servicios Web para cierta latitd y longitud.
-\item Selecci'on y ejecuci'on de reglas sem'anticas. De los pasos anteriores, se tiene informaci'on contextual del perfil de usuario, de los proveedores de datos y del entorno. Con base en esta informaci'on, se eligen las reglas sem'anticas a utilizar sobre los datos de los proveedores de servicios para identificar los restaurantes m'as adecuados.
+\item \textbf{Definici'on del perfil de usuario usando un vocabulario ontol'ogico}. Se extendi'o el vocabulario FOAF para expresar expl'icitamente las preferencias de los usuarios.
+\item \textbf{Creaci'on de una ontolog'ia con servicios geo-localizables}. Se genera una ontolog'ia con los servicios geo-localizables m'as cercanos al usuario. La latitud y longitud de su ubicaci'n se toman de la definici'on FOAF del primer punto. Esta parte es un primer filtro y reduce el n'umero de lugares y por lo tanto, la informaci'on a procesar.
+\item \textbf{Obtenci'on de informaci'on contextual del entorno}. Se obtiene el clima y la hora de un lugar utilizando servicios Web para cierta latitud y longitud.
+\item \textbf{Selecci'on y ejecuci'on de reglas sem'anticas}. De los pasos anteriores, se tiene informaci'on contextual del perfil de usuario, de los proveedores de datos y del entorno. Con base en esta informaci'on, se eligen las reglas sem'anticas a utilizar sobre los datos de los proveedores de servicios para identificar los restaurantes m'as adecuados.
 \end{enumerate}
 
 Detalle:
 \begin{itemize}
-\item XFOAF. Vocabulario extendido para incluir caracter'isticas contextuales del perfil de los usuarios. Usando FOAF se definen algunas caracter'isticas generales, el vocabulario Geo para la latitud y longitud del usuario y XFOAF para definir sus preferencias personales.
-\item Informaci'on contextual de los proveedores de datos. A partir de las coordenadas geográficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
-\item Obtenci'on de informaci'on contextual del entorno. Se usaron dos servicios Web, uno para obtener el clima y otro para obtener la hora de un determinado lugar geogr'afico.
-\item Reglas sem'anticas. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
+\item \textbf{XFOAF}. Vocabulario extendido para incluir caracter'isticas contextuales del perfil de los usuarios. Usando FOAF se definen algunas caracter'isticas generales, el vocabulario Geo para la latitud y longitud del usuario y XFOAF para definir sus preferencias personales.
+\item \textbf{Informaci'on contextual de los proveedores de datos}. A partir de las coordenadas geogr'aficas del usuario se obtiene mediante una consulta SQL los servicios geo-localizables mas cercanos y se ejecutan sobre ellos el proceso de inferencia con reglas sem'anticas. Se crea una ontolog'ia tomando los lugares geo-localizables cercanos indicados por la base de datos espacial y como vocabulario una ontolog'ia para restaurantes desarrollada previamente. Cada lugar es un ejemplar de la ontolog'ia y los campos de la base de datos son propiedades de objetos y tipo de datos. La ontolog'ia con ejemplares se considera una declaraci'on de relaciones de tipo booleano con respecto a los atributos que presentan los servicios geo-localizables. Estas relaciones se usan para determinar si el valor que presentan estos servicios (restaurantes) coinciden con los valores descritos por el perfil de usuario.
+\item \textbf{Obtenci'on de informaci'on contextual del entorno}. Se usaron dos servicios Web, uno para obtener el clima y otro para obtener la hora de un determinado lugar geogr'afico.
+\item \textbf{Reglas sem'anticas}. Las reglas se aplican sobre: caracter'isticas del perfil de usuario, datos de los proveedores e informaci'on contextual. Dependiendo de una caracter'istica espacio-temporal y su valor, se especifica un antecedente para esa situaci'on, con su respectivo consecuente. Se definen relaciones booleanas cuyos atributos son instanciados con los valores extra'idos de los proveedores. Se contabilizan para cada servicio, las caracter'isticas contextuales que cumple el servicio de acuerdo al perfil contextual del usuario y el entorno. La cuenta es la base para calcular el factor de impacto contextual y el ranqueo de los resultados a mostrar al usuario. Para la contabilizaci'on se usa el lenguaje de consulta SQWRL.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Reporte reciente (2010)}
+\section{Estado actual del trabajo (2010)}
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Evaluaci'on de sistemas de recomendaci'on: he aqu'i el punto}
-Lathia pag 11\\
-3301 pag 8\\
-recsyssurvey2010 pag 5, secci'on 3\\
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{T'erminos}
 \begin{itemize}
-\item Ontolog'ia.
-\item Ontolog'ia OWL.
-\item Web sem'antica.
-\item Web sem'antica en SWRL.
-\item Mapas Web y mashups.
-\item GoPlanit: sugiere una serie de servicios geolocalizables que se ajustan a un conjunto de caracter'isticas de usuario (solvencia econ'omica y ambiente del viaje).
-\item Geolocalizaci'on.
-\item Vocabulario FOAF.
-\item Qu'e es informaci'on contextual?
-\item Lenguaje de reglas SWRL, necesario para ejecuci'on de reglas de inferencia y consultas sobre una ontolog'ia.
+\item Se pensaba que un enfoque que considere la fusion entre los sistemas de recomendaci'un basado en usuario y en 'item con extension de anotaciones sociales pod'ia mejorar el desempeño en comparaci'on a los que no usan anotaciones.
+\item La mejora obtenida a trav'es de la fusi'on es casi imperceptible, mostrando puede ser suficiente considerar el acercamiento basado en usuario solamente, con la extension de anotaciones.
+\item Se sugiere un conjunto de reglas, basado en estudios de marketing.
+\item Las reglas de comportamiento del usuario se formalizaron en el lenguaje de SWRL.
+\item Las reglas contemplan los siguientes aspectos contextuales: econ'omico, psicol'ogico y motivacional.
+\item No toda la informaci'on puede ser representada por una regla.
 \end{itemize}
 
+La metodolog'ia para la construcci'on de reglas de Web sem'antica bajo un enfoque de marketing es la siguiente:
+
+\begin{enumerate}
+\item \textbf{Determinaci'on del mercado objetivo}. Consiste en definir qu'e tipo de productos o servicios se van a recomendar y el alcance del mercado (global o local). En este caso, servicios de restaurantes a nivel local.
+\item \textbf{Estudio de mercado}. Consiste en informaci'un proveniente de distintas fuentes, estudios de comportamiento, psicol'ugicos, sociales y culturales, para comprender el contexto en el que se desenvuelve el mercado.
+\item \textbf{Determinaci'on de patrones}. Se sigui'o literatura disponible de marketing, misma que permiti'o identificar el conjunto de reglas que se elaboraron para esta investigaci'on.
+\item \textbf{Desarrollo de una ontolog'ia}. Existen numerosas metodolog'ias para la creaci'on de ontolog'ias, como la de Uschold \& King. Este paso permite asentar y formalizar los conceptos que ser'an usados en la generaci'on de reglas. Esta etapa tambi'en incluye la poblaci'on o un mecanismo que permita poblar a la ontolog'ia, con
+informaci'on de los clientes potenciales y sus atributos as'i como de la oferta disponible. En nuestro caso de estudio, se identifica a un usuario, as'i como sus atributos (especificados en una versi'on extendida bajo FOAF), la ontolog'ia
+se puebla con ejemplares de restaurantes cercanos a la localizaci'un del usuario, as'i como los atributos de la misma.
+
+\item \textbf{Formalizaci'on de reglas}. Es el nexo entre los patrones identificados y la ontolog'ia desarrollada. Las reglas de Web sem'antica formuladas podr'an hacer uso de la ontolog'ia e inferir los resultados que cumplan las premisas especificadas. En nuestro caso, el lenguaje para la especificaci'on de las reglas es SWRL.
+\item \textbf{Pruebas y correcciones}.
+\item \textbf{Adaptaci'on evolutiva de las reglas de acuerdo a cambios del entorno}. Modificaci'on, eliminaci'on o integraci'on de reglas.
+\item \textbf{Ranking con base a reglas de Web sem'antica}. Rankeo basado en la cantidad de aspectos contextuales cumplidos entre los contextos de perfiles: usuario/datos, usuario/entorno, datos/entorno. Se desarroll'o un algoritmo que contabiliza las reglas cumplidas de acuerdo a la uni'on de contextos correspondientes. Al algoritmo se le agrega la combinaci'on de la matriz con los resultados de la recomendaci'on social para que en la experimentaci'on se pruebe la fusi'on de ambas partes, la contextual y la social. Se considera un peso de $0.1$ a $0,9$ en variaciones de $0.1$ donde se pruebe el desempe\~{n}o de las recomendaciones y determinar si se le debe dar mayor peso a uno o al otro.
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Evaluaci'on de sistemas de recomendaci'on}
+
+Tesis~\cite{eemcs13083},Lathia pag 11,3301 pag 8,recsyssurvey2010 pag 5, secci'on 3,\cite{Herlocker04evaluatingcollaborative}\\
+
+El filtrado colaborativo ha sido usando extensivamente lo que ha originado una gran diversidad de algoritmos para generar recomendaciones. Como en otras 'areas, todos dicen ser el mejor; sin embargo, no existe una metodolog'ia de evaluaci'on estándard para determinar qu'e hace a un algoritmo mejor que otro.
+
+La evaluaci'on de los sistemas de recomendaci'on es dif'icil por diversas razones:
+\begin{enumerate}
+\item Muchos algoritmos se han dise\~{n}ado para conjuntos de datos espec'ificos.
+\item Los objetivos de la evaluaci'on pueden ser diferentes. Muchos se enfocan a medir la precisi'on de sus predicciones de ratings. Otros, miden la frecuencia con que el sistema llev a tomar malas decisiones. Otros miden la cobertura de 'items del algoritmo. Tambi'en se ha medido la habilidad del sistema de explicar las recomendaciones.
+\item Algunos investigadores afirman que la medida m'as 'util es la satisfacci'on del usuario. Los sistemas comerciales miden la satisfacci'on del usuario por el la cantidad de productos comprados y no devueltos mientras que los no comerciales preguntan a los usuarios qu'e tan satisfechos est'an.
+\item Se observa que las mejoras en sistemas de filtrado colaborativo pueden ser en distintas direcciones. La evaluaci'on puede ser qu'e tan bien comunican su razonamiento a los usuarios, obtener recomendaciones precisas con el m'inimo de datos. Considerando esto, se necesitar'an nuevas m'etricas.
+\end{enumerate}
+
+
+
+%-------------------------------------------------------
+\subsection{Enfoques de evaluaci'on}
+Offline y Online
+%-------------------------------------------------------
+\subsection{M'etricas de precisi'on}
+de precisi'on predictiva, de precisi'on de clasificaci'on, de precisi'on del rank
+
+%-------------------------------------------------------
+\subsection{Cobertura}
+
+%-------------------------------------------------------
+\subsection{Confianza}
+
+%-------------------------------------------------------
+\subsection{Diversidad}
+
+%-------------------------------------------------------
+\subsection{Evaluaci'on del usuario}
+
+%-------------------------------------------------------
+\subsection{Learning rate}
+
+%-------------------------------------------------------
+\subsection{Novedad y casualidad afortunada}
+
+%-------------------------------------------------------
+\subsection{Satisfacci'on del usuario}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\section{Glosario}
+
+\begin{itemize}
+\item \textbf{Ontolog'ia}. Exhaustivo y riguroso esquema conceptual dentro de uno o varios dominios dados; con la finalidad de facilitar la comunicaci'on y el intercambio de informaci'on entre diferentes sistemas y entidades. Un uso común tecnol'ugico actual del concepto de ontolog'ia, en este sentido sem'antico, lo encontramos en la inteligencia artificial y la representaci'un del conocimiento. En algunas aplicaciones, se combinan varios esquemas en una estructura de facto completa de datos, que contiene todas las entidades relevantes y sus relaciones dentro del dominio. T'ipicamente, las ontolog'ias en las computadoras se relacionan estrechamente con vocabularios fijos –una ontolog'ia fundacional– con cuyos t'erminos debe ser descrito todo lo dem'as.
+\item \textbf{OWL} (Ontology Web Language). Es un lenguaje de marcado para publicar y compartir datos usando ontolog'ias en la WWW. OWL tiene como objetivo facilitar un modelo de marcado construido sobre RDF (Resource Description Framework) y codificado en XML. Estas herramientas y otros componentes hacen posible el proyecto de web sem'antica.
+\item \textbf{Web sem'antica}. Se basa en la idea de añadir metadatos sem'anticos y ontol'ogicos a la World Wide Web. Esas informaciones adicionales —que describen el contenido, el significado y la relaci'un de los datos— se deben proporcionar de manera formal, para que as'i sea posible evaluarlas autom'aticamente por m'aquinas de procesamiento. El objetivo es mejorar Internet ampliando la interoperabilidad entre los sistemas.
+\item \textbf{SWRL (Semantic Web Rule Language)}. Es una propuesta para un lenguaje de reglas de la Web Sem'antica que combina sub-lenguajes de OWL y RML (Rule Markup Language). Las reglas son de la forma de una implicaci'on entre un antecedente (cuerpo) y un consecuente (cabeza). El significado puede leerse como: siempre que las condiciones en el antecedente se cumplan, entonces las condiciones especificadas en el consecuente tambi'en se cumplen. Ejemplo entendible por personas:
+\begin{verbatim}
+hasParent(?x1,?x2) ∧ hasBrother(?x2,?x3) ⇒ hasUncle(?x1,?x3)
+\end{verbatim}
+
+Ejemplo en XML:
+
+\begin{verbatim}
+<ruleml:imp>
+  <ruleml:_rlab ruleml:href="#example1"/>
+  <ruleml:_body>
+    <swrlx:individualPropertyAtom swrlx:property="hasParent">
+      <ruleml:var>x1</ruleml:var>
+      <ruleml:var>x2</ruleml:var>
+    </swrlx:individualPropertyAtom>
+    <swrlx:individualPropertyAtom swrlx:property="hasBrother">
+      <ruleml:var>x2</ruleml:var>
+      <ruleml:var>x3</ruleml:var>
+    </swrlx:individualPropertyAtom>
+  </ruleml:_body>
+  <ruleml:_head>
+    <swrlx:individualPropertyAtom swrlx:property="hasUncle">
+      <ruleml:var>x1</ruleml:var>
+      <ruleml:var>x3</ruleml:var>
+    </swrlx:individualPropertyAtom>
+  </ruleml:_head>
+ </ruleml:imp>
+
+\end{verbatim}
+\item \textbf{Mapas Web (Web Map Service WMS)} es un protocolo est'andar para proporcionar im'agenes de mapas georeferenciados en Internet. Los mapas son generados por un sevidor de mapas usando informaci'on de una base de datos de un sistema de informaci'on geogr'afica (GIS).
+\item \textbf{Mashups}. En desarrollo Web, es una p'agina Web o aplicaci'on que usa y combina datos, presentaci'on o funcionalidad de dos o m'as fuentes para crear servicios nuevos. El t'ermino implica integraci'on f'acil y r'apida usando APIs abiertas y fuentes de datos para producir resultados enriquecidos que no necesariamente eran la raz'on original para producir los datos crudos iniciales.
+\item \textbf{Geolocalizaci'on}. Se refiere al posicionamiento con el que se define la localizaci'un de un objeto espacial (representado mediante punto, vector, 'area, volumen) en un sistema de coordenadas determinado. Este proceso es utilizado frecuentemente en los Sistemas de Informaci'un Geogr'afica.
+\item \textbf{FOAF (Friend of a friend)} es una ontolog'ia para describir personas, sus actividades y sus relaciones con otras personas y objetos. FOAF permite a grupos de gente describir redes sociales sin necesidad de una base de datos centralizada. FOAF es un vocabulario descriptivo que usa Resource Description Framework (RDF) y Web Ontology Language (OWL). Se pueden usar perfiles FOAF para encontrar por ejemplo, a toda la gente que vive en Europa.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \bibliographystyle{apalike}
 \bibliography{ea}
-\end{document} 
+\end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[keepaspectratio,width=2cm]{theimg/bp}
-% 	\caption[Bletchley Park]{Bletchley Park} 
-% 	\label{fig:bp}
+% \centering
+% \includegraphics[keepaspectratio,width=2cm]{theimg/bp}
+% \caption[Bletchley Park]{Bletchley Park}
+% \label{fig:bp}
 % \end{figure}
-% 
-% 
+%
+%
 % \begin{figure}[h]
-% 	\begin{center}
-% 	\subfigure[Teletipo]{\includegraphics[width=2.5cm,keepaspectratio]{theimg/teletipo}}  
-% 	\hspace{1cm}
-% 	\subfigure[Colossus]{\includegraphics[keepaspectratio,height=2cm]{theimg/colossus}} 
-% 	\caption{Teletipo y Colossus}
-%   \label{fig:teletipocolossus}
-% 	\end{center}
-% \end{figure} 
+% \begin{center}
+% \subfigure[Teletipo]{\includegraphics[width=2.5cm,keepaspectratio]{theimg/teletipo}}
+% \hspace{1cm}
+% \subfigure[Colossus]{\includegraphics[keepaspectratio,height=2cm]{theimg/colossus}}
+% \caption{Teletipo y Colossus}
+% \label{fig:teletipocolossus}
+% \end{center}
+% \end{figure}
+
+
