@@ -11,7 +11,7 @@
 \setlength{\textheight}{9in}
 \setlength{\oddsidemargin}{.125in}
 \setlength{\textwidth}{6.25in}
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 
 
 \begin{document}
@@ -461,33 +461,218 @@ En el 'area de Interacci'on Humano Computadora (HCI) se dice que el proceso de e
 %-------------------------------------------------------
 \subsection{Conjuntos de datos}
 Existen distintos aspectos que pueden hacer que los conjuntos de datos influyan en el 'exito del sistema de recomendaci'on.
-\begin{itemize}
-\item La evaluaci'on puede realizarse offline o se necesitan datos en vivo? Si se eval'ua el sistema en la tarea: encontrar buenos 'items donde se desea recomendar 'items novedosos puede no convenir usar solamente datos offline. Es probable que el conjunto de datos no proporcione suficiente informaci'on para evaluar la calidad de los 'items que se est'an recomendando. Si hay un 'item totalmente desconocido para el usuario es probable que no haya rating de ese usuario en esa base de datos. En vivo, los ratings se pueden obtener en el acto por cada item recomendado. Se podr'ia combinar. Predomina el la evaluaci'on offline de precisi'on predictiva. Ventaja: es r'apida y econ'omica. Desventajas: escasez de datos, se limita a evaluaci'on objetiva (datos cuantitativos, los cualitativos no se puede); no se pueden saber preferencias de uso del sistema, por ejemplo. En vivo se puede medir desempe\~{n}o, satisfacci'on, participaci'on entre otras medidas.
-\item Si no hay datos disponibles \textquestiondown pueden usarse datos simulados? Si se usando un nuevo dominio conviene usar datos sint'eticos. Oportunidad: t'ecnicas de modelado para generar datos sint'eticos de acuerdo a un modelo para evaluar el algoritmo. Esto llevar'ia a recomendadores m'as precisos con propiedades teo'ricas m'as claras.
-\item \textquestiondown qu'e propiedades debe tener para modelar mejor las tareas que se van a evaluar del sistema? Cuando se dise\~{n}a un sistema que recomienda comandos, se espera que el usuario haya usado del 5 al 10\%. No se puede usar los mismos algoritmos que para sugerir art'iculos bas'andonos en la evaluaci'on de resultados.
-\end{itemize}
+
+\bigskip
+\noindent
+\textbf{Offline/Online}.
+La evaluaci'on puede realizarse offline o se necesitan datos en vivo? Si se eval'ua el sistema en la tarea: encontrar buenos 'items donde se desea recomendar 'items novedosos puede no convenir usar solamente datos offline. Es probable que el conjunto de datos no proporcione suficiente informaci'on para evaluar la calidad de los 'items que se est'an recomendando. Si hay un 'item totalmente desconocido para el usuario es probable que no haya rating de ese usuario en esa base de datos. En vivo, los ratings se pueden obtener en el acto por cada item recomendado. Se podr'ia combinar. Predomina el la evaluaci'on offline de precisi'on predictiva. Ventaja: es r'apida y econ'omica. Desventajas: escasez de datos, se limita a evaluaci'on objetiva (datos cuantitativos, los cualitativos no se puede); no se pueden saber preferencias de uso del sistema, por ejemplo. En vivo se puede medir desempe\~{n}o, satisfacci'on, participaci'on entre otras medidas.
+
+\bigskip
+\noindent
+\textbf{Uso de datos simulados}
+Si no hay datos disponibles \textquestiondown pueden usarse datos simulados? Si se usando un nuevo dominio conviene usar datos sint'eticos. Oportunidad: t'ecnicas de modelado para generar datos sint'eticos de acuerdo a un modelo para evaluar el algoritmo. Esto llevar'ia a recomendadores m'as precisos con propiedades teo'ricas m'as claras.
+
+\bigskip
+\noindent
+\textbf{Propiedades de los datos}
+\textquestiondown qu'e propiedades debe tener para modelar mejor las tareas que se van a evaluar del sistema? Cuando se dise\~{n}a un sistema que recomienda comandos, se espera que el usuario haya usado del 5 al 10\%. No se puede usar los mismos algoritmos que para sugerir art'iculos bas'andonos en la evaluaci'on de resultados. Herlocker las divide en tres categor'ias:
+	\begin{enumerate}
+	\item \textbf{Atributos de dominio}. Reflejan la naturaleza del dominio que se va a recomendar. Puede incluir:
+	\begin{itemize}
+	\item el t'opico a recomendar y su contexto asociado;
+	\item las tareas que el sistema soporta;
+	\item la necesidad de calidad y novedad;
+	\item el costo-beneficio asociado a una buena o mala recomendaci'on y
+	\item la granularidad de las preferencias del usuario.
+	\end{itemize}
+	\item \textbf{Atributos de inherencia}. Refleja la naturaleza del sistema de recomendaci'on espec'ifico para el que fueron hechos los datos. Incluye atributos sobre los ratings:
+	\begin{itemize}
+	\item Si son expl'icitos, impl'icitos o ambos.
+	\item Escala del rating.
+	\item Dimensiones del rating (e.g., pel'icula, actores, director).
+	\item Si se registran las recomendaciones.
+	\item Disponibilidad de informaci'on demogr'afica del usuario (e.g., zona postal para recomendaci'on de un lugar).
+	\item Sesgo de la colecci'on de datos: si se le pide a usuarios que califiquen ciertos 'items, los resultados son distintos.
+	\end{itemize}
+	\item \textbf{Atributos de muestreo}. Refleja la distribuci'on de los datos. Son las propiedades estad'isticas de los datos:
+	\begin{itemize}
+	\item Densidad de los ratings: porcentaje promedio de 'items que han sido calificados por usuario; la densidad puede ser manipulada incluyendo o agregando 'items.
+	\item Densidad de ratings de los usuarios para cuyas recomendaciones se hacen lo que representa la experiencia del usuario en el sistema al momento de la recomendaci'on; ratings de usuarios con experiencia significativa puede ocultarse para simular que son nuevos usuarios.
+	\item Tama\~{n}o general y distribuci'on del conjunto de datos; algunos conjuntos tienen m'as usuarios que 'items.
+	\end{itemize}
+	\end{enumerate}
+
+\bigskip
+\noindent
+\textbf{Escasez de datos}. Existen pocos conjuntos de datos de prueba disponibles, adem'as con poca diversidad. Esto origina que por la falta de datos se restrinja el tipo de experimentos e hip'otesis.
 %-------------------------------------------------------
 \subsection{M'etricas de precisi'on}
-de precisi'on predictiva, de precisi'on de clasificaci'on, de precisi'on del rank
+
+En la mayor'ia de los sistemas de recomendaci'on los algoritmos son evaluados por su precisi'on. Una m'etrica de precisi'on mide emp'iricamente qu'e tan cerca la predicci'on del ranking de 'items para un usuario difiere de la preferencia real del usuario. Los ratings estimados son comparados contra el rating actual~\cite{start:candillier09}. Tambi'en miden qu'e tan bien un sistema puede predecir un rating exacto para un 'item espec'ifico\cite{Herlocker04evaluatingcollaborative}.
+
+Seleccionar una m'etrica adecuada es un reto debido a la diversidad de m'etricas publicadas. Sin un est'andar, los investigadores contin'uan introduciendo nuevas m'etricas al evaluar sus sistemas lo que origina que sea m'as dif'icil la comparaci'on. Las m'etricas de precisi'on pueden clasificarse en tres clases: 
+
+\begin{enumerate}
+\item \textbf{Precisi'on predictiva}. Miden qu'e tan cerca están las predicciones de los ratings del sistema de recomendaci'on a los del usuario real. Son particularmente importantes para evaluar tareas en las que el rating calculado se desplegar'a al usuario. Como los valores calculados generan un orden, tambi'en se usa para medir la habilidad del sistema para rankear los 'items seg'un las preferencias del usuario. La desventaja es que la m'etrica se limita a calcular la diferencia entre el rating estimado y el verdadero.
+
+	\begin{itemize}
+	\item Error absoluto medio (MAE). Mide la desviaci'on del promedio absoluto entre un rating estimado y el rating verdadero. No apropiado para \textit{Encontrar buenos 'items} donde se despliega una lista rankeada pero el usuario solamente ve los de mayor ranking. Puede no ser importante que tan exactas son las predicciones para 'items que el sistema sabe que al usuario no le interesan. Tampoco es muy apropiada cuando la granularidad del la preferencia es peque\~{n}a ya que los errores s'olo afectar'an a la tarea si el resultado es clasificado err'oneamente como bueno o malo. Un error en el cual el sistema estima un 4 en vez de un 5 no hace una diferencia al usuario. Tres medidas relacionadas con el error absoluto medio son: el error cuadr'atico medio, la ra'iz cuadrada del error cuadr'atico medio y el error absoluto de la media normalizada.
+	\item Error cuadr'atico medio.
+	\item Ra'iz cuadrada del error cuadr'atico medio (RMSE). 
+	MAE y RMSE se enfocan en la diferencia entre el rating de un 'item $i$ por un usuario $a$ y la predicci'on para el mismo usuario y el 'item. En general, ambas m'etricas miden lo mismo y se comportan de forma parecida. Si en un experimento se obtiene una MAE reducida, el RMSE tambi'en se reducir¿a. La diferencia radica en el grado en el cual los errores son penalizados.
+	El error cuadr'atico medio y RMSE elevan al cuadrado el error antes de sumarlo lo que da mayor 'enfasis en errores grandes. Por ejemplo, un eeror de un punto incrementea la suma del error en uno, pero el error de dos puntos incrementa la suma en cuatro. 
+	\item Error absoluto de la media normalizada.  Es el error absoluto de la media normalizada con respecto al rango de valores de ratings. En teor'ia permite la comparaci'on entre predicciones sobre diferentes conjuntos aunque no se ha investigado.
+	\end{itemize}
+
+Un error en la predicci'on afecta el error medio de la misma manera, sin importar si la predicci'on permite a la entrada calificar como recomendaci'on top o no. Adem'as, muchos 'items tendr'an baja varianza. Como consecuencia de esto, un m'etodo de evaluaci'on que s'olo hace predicciones sobre 'items en el conjutno de prueba, 'items que el usuario ha calificado, tender'a a mostrar buen desempe\~{n}o. Los sistemas reales, que tienen que hacer predicciones en todos los 'items no calificados tienen peor desempe\~{n}o. 
+
+Los errores de la media no tienden a reflejar la experiencia con el usuario final. Estas m'etricas permanecen debido a la necesidad de evaluaciones emp'iricas que puedan comparar el desempe\~{n}o relativo para diferentes t'ecnicas sin incluir puntos de vista subjetivos. 
+
+\item \textbf{Precisi'on de clasificaci'on}. Miden la frecuencia con la que el sistema toma decisiones correctas o incorrectas sobre si un 'item es bueno. Son apropiadas para tareas como \textit{encontrar buenos 'items} donde los usuarios tienen preferencias binarias.
+
+En experimentos offline, las m'etricas de clasificaci'on pueden tener problemas de escasez de datos. El problema ocurre cuando el sistema a ser evaluado genera una lista de los 'items m'as recomendados. Cuando se eval'ua la calidad de la lista, las recomendaciones puede ser que no hayan sido calificadas. Lo que se haga con esos 'items puede llevar a ciertos sesgos.
+
+Un enfoque con datos escasos es ignorar las recomendaciones de 'items para los que no hay ratings. De la lista de recomendaciones se remueven los 'items no calificados. La tarea de recomendaci'on se ha cambiado a una de \textit{predecir los 'items m'as recomendados que no han sido calificados}. En tareas donde el usuario s'olo observa las mejores recomendaciones esto puede llevar a evaluaciones no precisas con respecto a la tarea del usuario. El problema es que la calidad de los 'items que el usuario actualmente ver'ia no puede ser medida. Por ejemplo, si hay un 'item que ha sido calificado por un s'olo usuario con la mayor calificaci'on, 'ese 'item aparecer'a en la lista de los mejores aun cuando s'olo un usuario lo ha calificado. Sin embargo, como ning'un otro usuario lo ha evaluado, la recomendaci'on ser'a ignorada por la métrica de evaluaci'on, salt'andose la falta en el algoritmo.
+
+Otro enfoque es suponer ratings por omisi'on, a menudo ligeramente negativos para 'items no calificados. Lo malo es que el rating por omisi'on puede ser muy distinto del rating verdadero no observado.
+
+Un tercer enfoque es calcular qu'e tanto de los 'items m'as recomendados se encuentra en la lista de recomendaciones generada por el sistema. B'asicamente se est'a midiendo qu'e tan bien el sistema puede identificar 'items de los que el usuario est'a consciente. Este enfoque puede generar sistemas que se sesguen hacia las recomendaciones obvias, ajust'andose a datos conocidos y pobremente a nuevos datos.
+
+Las m'etricas de clasificaci'on no tratan de medir directamentve la habilidad de un algoritmo para predecir ratings. Desviaciones de los ratings actuales son tolerados mientras no lleven a errores de clasificaci'on.
+
+
+\item \textbf{Precisi'on/recuerdo y m'etricas relacionadas}. Son las m'etricas m'as usadas para evaluar sistemas de recuperaci'on de informaci'on. La precisi'on y el recuerdo se calculan en una tabla de $2 \times 2$. El conjunto de 'items es separado en dos clases: relevante o no relevante. Se necesita separar el conjunto de 'items en  el conjunto que fue regresado al usuario (seleccionado/recomendado), y el que no. Se asume que el usuario considerar'a todos los 'items regresados.
+
+La precisi'on se define como la relaci'on de 'items seleccionados relevantes con respecto al n'umero de 'items seleccionados (Ec.~\ref{eqprec}).
+
+\begin{equation}
+P = \frac{N_{rs}}{N_s}
+\label{eqprec}
+\end{equation}
+
+La precisi'on representa la probabilidad de que un 'item seleccionado sea relevante. 
+
+El recuerdo (Ec.~\ref{eqrec}) se define como la relaci'on de 'items seleccionados relevantes con el n'umero total de 'items relevantes disponibles. El recuerdo representa la probabilidad de que un 'item relevante sea seleccionado.
+
+
+\begin{equation}
+R = \frac{N_{rs}}{N_r}
+\label{eqrec}
+\end{equation}
+
+La precisi'on y el recuerdo dependen de la separaci'on de 'items relevantes y no relevantes.
+
+La relevancia es un t'ermino subjetivo en los sistemas de recomendaci'on pues s'olo el usuario puede determinar si el 'item le gust'o o no. Tambi'en las escalas del rating pueden diferir al considerarlas relevantes o no. 
+
+El recuerdo requiere saber qu'e 'item es relevante. En muchos casos, esto es inconsistente pues para cada usuario los 'items pueden ser o no relevantes.
+
+Una forma para calcular la precisi'on y el recuerdo ser'ia predecir los $N$ mejores 'items para los que se tienen ratings. Se toman los ratings del usuario, se dividen en conjunto de entrenamiento y prueba, se entrena el algoritmo y se predice los $N$ mejores 'items para el conjunto de prueba. Si suponemos que la distribuci'on de 'items relevantes y no relevantes dentro del conjunto de prueba del usuario es la misma que la istribuci'on verdadera, entonces la precisi'on y el recuerdo tendr'a una aproximaci'on m'as cercana.
+
+Precisi'on y recuerdo deben usarse juntos para comparar los algoritmos. Son inversamente relacionados y dependen de la longitud de la lista resultante. Cuando se devuelven m'as 'items, el recuerdo aumenta y la precisi'on disminuye.
+
+La precisi'on aislada puede ser apropiada si el usuario no necesita una lista de todos los 'items relevantes potenciales tal como en la tarea de \textit{encntrar buenos 'items}. Si la tarea es encontrar a todos los 'items relevantes, entonces el recuerdo tambi'en es importante. 
+
+Al igual que todas las m'etricas de clasificaci'on, precisi'on y recuerdo son menos apropiados para dominios con granularidad no binaria. Como la precisi'on y el recuerdo miden 'unicamente relevancia binaria, no pueden medir la calidad del orden entre 'items que son seleccionados como relevantes.
+
+\item \textbf{Curvas ROC}
+
+\end{enumerate}
+
+
+
+
+
 
 %-------------------------------------------------------
+Los sistemas de recomendaci'on no deben dar s'olo precisi'on sino utilidad. Un recomendador que proporciona alta precisi'on pero solo calcula predicciones para 'items f'aciles de predecir y que son los que menos necesitan ser recomendados. Un sistema que siempre recomienda 'items populares puede prometer que a los usuarios les gustar'an sus recomendaciones pero eso es algo que una simple m'etrica de popularidad tambi'en hace.
+
+El desempe\~{n}o de un sistema de recomendaci'on debe evaluarse con respecto a tareas espec'ificas y el contexto del dominio; no solamente usando precisi'on. Algunas medidas son las siguientes:
+
 \subsection{Cobertura}
+Mide el porcentaje de un conjunto de datos sobre el cual el sistema es capaz de dar recomendaciones.
+
+Es especialmente importante para la tarea de \textit{encontrar todos los 'items buenos} ya que los sistemas que no pueden evaluar a la mayor'ia de los 'items en el dominio no pueden encontrar todos los 'items buenos. Tambi'en es importante para la tarea de \textit{Annotate in context} ya que no pueden hacerse anotaciones para los 'items en los que no hay predicciones.
+
+En predicci'on, la cobertura se refiere al porcentaje de 'items para el cual el sistema puede hacer predicciones; es la cobertura de predicci'on. Otro tipo de cobertura contesta a \textquestiondown qu'e porcentaje de 'items son los que el sistema recomienda siempre? Para un sitio comercial, mide qu'e tanto del cat'alogo se recomienda por lo que se le llama cobertura de cat'alogo. Se hace en combinaci'on con precisi'on.
+
+Una alternativa es medir la cobertura sobre los 'items que el usuario tiene inter'es. No es una desventaja si un sistema no muestra cosas sobre futbol a alguien que no le interesa.
+
+La cobertura de cat'alogo se expresa como el porcentaje de 'items que son recomendados a los usuario. Generalmente se mide en el conjunto de recomendaciones en un punto en el tiempo. Por ejemplo, puede medirse tomando la uni'on de las diez mejores recomendaciones para cada usuario. Esta m'etrica se distorsiona si no se toma en cuenta la precisi'on. Por ejemplo, si hay un 'item en el cat'alogo que no es interesante a ning'un usuario, un buen algoritmo no deber'ia recomendarlo nunca lo que bajar'ia la cobertura pero elevar'ia la precisi'on.
+
+Una medida de cobertura debe tener las siguientes caracter'isticas: (1) deber'ia medir cobertura de predicci'on y de cat'alogo; (2) para la cobertura de predicci'on, deber'ia dar m'as peso a los 'items que probablemente le gustar'an m'as al usuario;(3) deber'ia haber algo que combine la cobertura con la precisi'on para dar una medida de 'precisi'on pr'actica'
+
+Comparar recomendadores con estas dimensiones asegurar'a que los nuevos recomendadores no logren la precici'on por escoger 'items f'aciles de recomendar sino que den un amplio rango de recomendaciones 'utiles a los usuarios.
+
+%-------------------------------------------------------
+
+\subsection{Tasa de aprendizaje}
+Mide qu'e tan r'apido un algoritmo puede producir buenas recomendaciones.
+
+El desempe\~{n}o del sistema var'ia dependiendo de la cantidad de datos de aprendizaje disponible. Conforme la cantidad de datos de entrenamiento aumenta, la calidad de las recomendaciones deber'ia incrementar. Algunos algoritmos requieren pocos datos; otros necesitan muchos. Tres son las tasas de aprendizaje consideradas en los sistemas de recomendaci'on:
+
+\begin{itemize}
+\item Tasa de aprendizaje general. Es la calidad de la recomendaci'on en funci'on del n'umero general de ratings (o usuarios) en el sistema).
+\item Tasa de aprendizaje por 'item. Es la calidad de las predicciones para un 'item en funci'on del n'umero de ratings disponible para cada 'item.
+\item Tasa de aprendizaje por usuario. Es la calidad de las recomendaciones para un usuario en funci'on del n'umero de ratings con los que el usuario ha contribuido.
+\end{itemize}
+
+El m'etodo m'as com'un para comparar las tasas de aprendizaje de diferentes algoritmos es graficar la calidad (precisi'on) contra el n'umero de ratings.
+
+La falta de evaluaci'on de la tasa de aprendizaje se debe a que las bases de datos de prueba tienen ya muchos ratings.
+
+%-------------------------------------------------------
+\subsection{Novedad y recomendaci'on afortunada}
+Mide si una recomendaci'on es novedosa.
+
+Algunos sistemas pueden dar recomendaciones con alta precisi'on y una cobertura razonable pero ser in'utiles. Esto se debe a que recomiendar 'items populares, estad'isticamente con alta precisi'on pero que no es necesario recomedar porque a todos les gustan (e.g., pan, pl'atanos). 
+
+Aunque las recomendaciones obvias no dan valor agregado, a los usuarios les gusta recibir algunas recomendaciones de 'items que les son familiares. Lo que se ha hecho es incrementar la confianza en el sistema. En el caso de la m'usica o art'iculos gratuitos, los usuarios prefieren cosas novedosas. 
+
+Dependiendo de la tarea, es mejor mostrar un gran n'umero de 'items familiares que en otras.
+
+Adem'as de la dimensi'on de \textit{novedad} est'a la de \textit{casualidad}. Una recomendaci'on afortunada ayuda al usuario a encontrar un 'item sorprendentemente interesante que de otra manera no lo habr'ia descubierto.
+
+La diferencia entre novedad y recomendaci'on afortunada es importante cuando se eval'uan algoritmos de filtrado colaborativo porque el potencial para recomendaciones afortunadas es una faceta del filtrado colaborativo que el filtrado basado en contenido no tiene.
+
+Dise\~{n}ar m'etricas para medir las recomendaciones afortunadas es dif'icil porque es una medida del grado en que las recomendaciones muestran 'items que son a la vez atractivas y sorprendentes.
+
+Una buena m'etrica debe encontrar la forma de ver c'omo los intereses del usuario se ampl'ian sobre el tiempo. Ver qu'e tan feliz es con los 'items recomendados. 
+
+Una buena m'etrica de novedad ver'ia de forma m'as general qu'e tan bien un sistema hace al usuario consciente de 'items desconocidos. Hasta d'onde acepta nuevas recomendaciones?
 
 %-------------------------------------------------------
 \subsection{Confianza}
+Ayudan al usuario a tomar decisiones efectivas.
 
-%-------------------------------------------------------
-\subsection{Diversidad}
+Los usuarios de sistemas de recomendaci'on frecuentemente tienen qu'e decidir c'omo interpretar las recomendaciones en dos dimensiones conflictivas. La primera es la fuerza de la recomendaci'on, i.e., qu'e tanto el sistema cree que al usuario le gustar'a un 'item. La segunda es la confianza, i.e., qu'e tan seguro est'a el sistema de que su recomendaci'on es precisa.
+
+Muchos suponen que es m'as probable que un usuario prefiera un 'item on cinco estrellas  que uno de cuatro, en escala de cinco. La suposici'on es a menudo falsa pues muchos productos a menudo se basan en peque\~{n}as cantidades de datos.
+
+Para ayudar al usuario a tomar decisiones bas'andose en las recomendaciones, los sistemas deben ayudar al usuario a navegar entre la fuerza y la confianza. En algunos enfoques no presentan recomendaciones que vienen de conjuntos de datos reducidos. Quieren recomendaciones en las que los usuarios puedan confiar. Otro enfoque muestra que desplegando el nivel de confianza hace que el usuario tome mejores decisiones. 
+
+Medir la calidad de la confianza es dif'icil porque es un atributo con varias dimensiones. Sin embargo, recomendadores que no incluyen alguna medida de confianza pueden llevar a pobres decisiones. 
+
+Si el despliegue de confianza muestra una probabilidad cuantitativa o cualitativa de c'omo ser'a la precisi'on, la confianza puede probarse contra las recomendaciones actuales hechas a los usuarios. \textquestiondown Qu'e tan precisas son las recomendaciones hechas con alta confianza y con baja? 
+
+Si el desplegar la confianza directamente influye en la decisi'on, medir la precisi'on de las decisiones puede medir la confianza. \textquestiondown Qu'e tanto mejora la toma de decisiones cuando se les muestra a los usuarios una medida de confianza?
 
 %-------------------------------------------------------
 \subsection{Evaluaci'on del usuario}
+Miden si el usuario est'a satisfecho con el sistema y su desempe\~{n}o, es decir, si le fu'e 'util o no. 
 
-%-------------------------------------------------------
-\subsection{Learning rate}
+Las m'etricas anteriores son aqu'ellas que se cree que afectan la utilidad del sistema al usuario. Pero, \textquestiondown c'omo se eval'ua directamente la reacci'on del usuario al sistema?
 
-%-------------------------------------------------------
-\subsection{Novedad y casualidad afortunada}
+En esta parte, hay dos aspectos: la reacci'on del usuario al sistema y la reacci'on a la recomendaci'on. En la primera, se eval'ua con an'alisis de usabilidad, en la segunda, se eval'ua el proceso total: el usuario compr'o, visit'o el lugar y le gust'o, eso depende del objetivo del sistema qu'e es lo que defina como exitoso.
 
+Existen diversas dimensiones para la evaluaci'on del usuario:
+\begin{itemize}
+\item Expl'icito/impl'icito. Consiste en preguntar expl'icitamente al usuario sobre sus reacciones ante el sistema mediante encuestas y entrevistas. La forma impl'icita consiste en obtener trazas del comportamiento y analizarlas.
+\item Estudios de laboratorio/campo. Las pruebas en laboratorio, bajo condiciones controladas son buenas para probar hip'otesis espec'ificas. Las pruebas en campo pueden mostrar lo que los usuarios hacen en el contexto real.
+\item Resultado/proceso. Para cualquier tarea se deben establecer m'etricas sobre lo que se define como un resultado exitoso. Desde la perspectiva del sistema, la medida principal ser'ia la precisi'on. Desde la perspectiva del usuario, las m'etricas son relativas a las tareas particulares.
+\item Corto/largo periodo. Algunos aspectos no se ven en estudios de corta duraci'on. 
+\end{itemize}
+
+\textbf{Control}. Uno de los aspectos importantes es el control. Al usuario le gusta sentir que tiene el control de sus recomendaciones. Por ejemplo, poder corregir lo que no le gusta. Las interfaces para entrada expl'icita de preferencias se han dise\~{n}ado para permitir a los usuarios indicar las preferencias asl sistema.
 %-------------------------------------------------------
 \subsection{Satisfacci'on del usuario}
 
